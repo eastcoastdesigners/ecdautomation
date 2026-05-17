@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECD Admin — Lead CRM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { navy: '#0F172A', green: '#22C55E' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="font-sans bg-gray-50 min-h-screen">
+
+  <!-- Login screen -->
+  <div id="loginScreen" class="min-h-screen flex items-center justify-center px-4">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 w-full max-w-sm">
+      <div class="text-center mb-8">
+        <div class="text-2xl font-black text-navy mb-1">ECD Admin</div>
+        <div class="text-gray-400 text-sm">Lead CRM — Private</div>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-navy mb-1.5">Username</label>
+          <input id="loginUser" type="text" value="admin" class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-green transition-all" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-navy mb-1.5">Password</label>
+          <input id="loginPass" type="password" placeholder="Enter password"
+            class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-green transition-all" />
+        </div>
+        <div id="loginError" class="hidden text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3"></div>
+        <button id="loginBtn" class="w-full bg-navy text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition-all">
+          Sign In
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRM dashboard -->
+  <div id="crmScreen" class="hidden">
+    <!-- Top bar -->
+    <header class="bg-navy text-white px-6 py-4 flex items-center justify-between shadow-lg">
+      <div class="font-bold text-lg">
+        <span class="text-green">ECD</span> Admin
+      </div>
+      <div class="flex items-center gap-4">
+        <span id="adminWelcome" class="text-gray-400 text-sm hidden sm:block"></span>
+        <button id="exportBtn" class="bg-green/20 text-green text-sm font-semibold px-4 py-2 rounded-lg hover:bg-green/30 transition-all">
+          Export CSV
+        </button>
+        <button id="logoutBtn" class="text-gray-400 hover:text-white text-sm transition-colors">Sign Out</button>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+      <!-- Status summary -->
+      <div id="statusSummary" class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8"></div>
+
+      <!-- Leads table -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+          <h2 class="font-bold text-navy">All Leads</h2>
+          <button id="refreshBtn" class="text-gray-400 hover:text-navy text-sm transition-colors">↻ Refresh</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-100">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wide">Name</th>
+                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wide">Email</th>
+                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wide">Phone</th>
+                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wide">Message</th>
+                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wide">Source</th>
+                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wide">Date</th>
+                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wide">Status</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody" class="divide-y divide-gray-50">
+              <tr>
+                <td colspan="7" class="px-4 py-12 text-center text-gray-400">Loading leads...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const STATUS_LABELS = {
+      new: { label: 'New', color: 'bg-blue-100 text-blue-700' },
+      contacted: { label: 'Contacted', color: 'bg-yellow-100 text-yellow-700' },
+      demo_booked: { label: 'Demo Booked', color: 'bg-purple-100 text-purple-700' },
+      closed_won: { label: 'Closed Won', color: 'bg-green-100 text-green-700' },
+      closed_lost: { label: 'Closed Lost', color: 'bg-red-100 text-red-700' }
+    };
+
+    let authHeader = '';
+    let allLeads = [];
+
+    // Login
+    async function doLogin() {
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      const loginError = document.getElementById('loginError');
+      loginError.classList.add('hidden');
+
+      if (!user || !pass) {
+        loginError.textContent = 'Enter username and password.';
+        loginError.classList.remove('hidden');
+        return;
+      }
+
+      authHeader = 'Basic ' + btoa(user + ':' + pass);
+      const res = await fetch('/api/leads', { headers: { Authorization: authHeader } });
+
+      if (res.status === 401) {
+        loginError.textContent = 'Invalid username or password.';
+        loginError.classList.remove('hidden');
+        authHeader = '';
+        return;
+      }
+
+      const leads = await res.json();
+      allLeads = leads;
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('crmScreen').classList.remove('hidden');
+      document.getElementById('adminWelcome').textContent = `Signed in as ${user}`;
+      document.getElementById('adminWelcome').classList.remove('hidden');
+      renderLeads(leads);
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', doLogin);
+    document.getElementById('loginPass').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doLogin();
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      authHeader = '';
+      allLeads = [];
+      document.getElementById('crmScreen').classList.add('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
+      document.getElementById('loginPass').value = '';
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', loadLeads);
+
+    async function loadLeads() {
+      const res = await fetch('/api/leads', { headers: { Authorization: authHeader } });
+      if (res.ok) {
+        allLeads = await res.json();
+        renderLeads(allLeads);
+      }
+    }
+
+    function renderLeads(leads) {
+      // Status summary
+      const counts = {};
+      Object.keys(STATUS_LABELS).forEach(s => counts[s] = 0);
+      leads.forEach(l => { if (counts[l.status] !== undefined) counts[l.status]++; });
+
+      const summaryEl = document.getElementById('statusSummary');
+      summaryEl.innerHTML = Object.entries(STATUS_LABELS).map(([key, { label, color }]) => `
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-5 py-4 text-center">
+          <div class="text-2xl font-black text-navy">${counts[key]}</div>
+          <div class="text-xs font-semibold mt-1"><span class="inline-block px-2 py-0.5 rounded-full ${color}">${label}</span></div>
+        </div>
+      `).join('');
+
+      // Table
+      const tbody = document.getElementById('leadsTableBody');
+      if (leads.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-12 text-center text-gray-400">No leads yet. Share the site!</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = leads.map(lead => {
+        const date = new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const statusInfo = STATUS_LABELS[lead.status] || { label: lead.status, color: 'bg-gray-100 text-gray-600' };
+
+        const options = Object.entries(STATUS_LABELS).map(([key, { label }]) =>
+          `<option value="${key}" ${lead.status === key ? 'selected' : ''}>${label}</option>`
+        ).join('');
+
+        return `
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-4 py-4 font-semibold text-navy whitespace-nowrap">${escapeHtml(lead.name)}</td>
+            <td class="px-4 py-4 text-gray-600">
+              <a href="mailto:${escapeHtml(lead.email)}" class="hover:text-green transition-colors">${escapeHtml(lead.email)}</a>
+            </td>
+            <td class="px-4 py-4 text-gray-600 whitespace-nowrap">
+              <a href="tel:${escapeHtml(lead.phone)}" class="hover:text-green transition-colors">${escapeHtml(lead.phone)}</a>
+            </td>
+            <td class="px-4 py-4 text-gray-500 max-w-xs">
+              <div class="truncate" title="${escapeHtml(lead.message)}">${escapeHtml(lead.message)}</div>
+            </td>
+            <td class="px-4 py-4 text-gray-400 text-xs">${escapeHtml(lead.source)}</td>
+            <td class="px-4 py-4 text-gray-400 text-xs whitespace-nowrap">${date}</td>
+            <td class="px-4 py-4">
+              <select data-id="${lead.id}" class="status-select text-xs font-semibold border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:border-green cursor-pointer transition-all">
+                ${options}
+              </select>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Status change handlers
+      tbody.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', async (e) => {
+          const id = e.target.dataset.id;
+          const status = e.target.value;
+          await fetch(`/api/leads/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', Authorization: authHeader },
+            body: JSON.stringify({ status })
+          });
+          await loadLeads();
+        });
+      });
+    }
+
+    // CSV export
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      if (!allLeads.length) return;
+      const headers = ['ID', 'Name', 'Email', 'Phone', 'Message', 'Source', 'Status', 'Date'];
+      const rows = allLeads.map(l => [
+        l.id, l.name, l.email, l.phone,
+        `"${(l.message || '').replace(/"/g, '""')}"`,
+        l.source, l.status, l.created_at
+      ]);
+      const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ecd-leads-${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.appendChild(document.createTextNode(str || ''));
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
