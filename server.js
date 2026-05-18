@@ -68,7 +68,7 @@ app.post('/api/leads', (req, res) => {
 
       // Notify owner
       resend.emails.send({
-        from: 'ECD Automation <onboarding@resend.dev>',
+        from: 'ECD Automation <hello@ecdautomation.com>',
         to: notifyEmail,
         subject: `New Lead: ${name.trim()}`,
         html: `
@@ -83,7 +83,7 @@ app.post('/api/leads', (req, res) => {
 
       // Follow-up to lead
       resend.emails.send({
-        from: 'Cristina at East Coast Designers <onboarding@resend.dev>',
+        from: 'Cristina at East Coast Designers <hello@ecdautomation.com>',
         to: email.trim(),
         subject: `Got your info, ${name.trim().split(' ')[0]} — here's what's next`,
         html: `
