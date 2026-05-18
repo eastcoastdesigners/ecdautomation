@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { DatabaseSync } = require('node:sqlite');
+const { Resend } = require('resend');
+
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -59,6 +62,47 @@ app.post('/api/leads', (req, res) => {
       'INSERT INTO leads (name, email, phone, message, source) VALUES (?, ?, ?, ?, ?)'
     );
     stmt.run(name.trim(), email.trim(), phone.trim(), message.trim(), source || 'website');
+
+    if (resend) {
+      const notifyEmail = process.env.NOTIFY_EMAIL || 'eastcoastdesigners@gmail.com';
+
+      // Notify owner
+      resend.emails.send({
+        from: 'ECD Automation <onboarding@resend.dev>',
+        to: notifyEmail,
+        subject: `New Lead: ${name.trim()}`,
+        html: `
+          <h2>New lead from ecdautomation.com</h2>
+          <p><strong>Name:</strong> ${name.trim()}</p>
+          <p><strong>Email:</strong> ${email.trim()}</p>
+          <p><strong>Phone:</strong> ${phone.trim()}</p>
+          <p><strong>Message:</strong><br>${message.trim()}</p>
+          <p><a href="https://ecdautomation.com/admin.html">View in CRM →</a></p>
+        `
+      }).catch(err => console.error('Owner notify error:', err));
+
+      // Follow-up to lead
+      resend.emails.send({
+        from: 'Cristina at East Coast Designers <onboarding@resend.dev>',
+        to: email.trim(),
+        subject: `Got your info, ${name.trim().split(' ')[0]} — here's what's next`,
+        html: `
+          <p>Hey ${name.trim().split(' ')[0]},</p>
+          <p>Got your message. I'll reach out within 24 hours to set up your free 30-minute consultation.</p>
+          <p>In the meantime, if you want to skip the wait — grab a time directly on my calendar:</p>
+          <p><a href="https://cal.com/east-coast-designers/30-min-ai-automation-consultation">Book your 30-minute call →</a></p>
+          <p>Here's what we'll cover:</p>
+          <ul>
+            <li>What you actually need (website, CRM, AI, or all three)</li>
+            <li>What it costs and what you'll own</li>
+            <li>How fast we can get it done</li>
+          </ul>
+          <p>No sales pitch. No pressure. Just answers.</p>
+          <p>— Cristina<br>East Coast Designers | AI Automation<br>ecdautomation.com</p>
+        `
+      }).catch(err => console.error('Lead follow-up error:', err));
+    }
+
     res.json({ success: true });
   } catch (err) {
     console.error('Lead insert error:', err);
