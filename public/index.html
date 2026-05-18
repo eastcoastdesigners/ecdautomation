@@ -108,7 +108,7 @@
   <section class="gradient-hero text-white py-20 md:py-32 px-4">
     <div class="max-w-4xl mx-auto text-center">
       <div class="inline-block bg-green/20 border border-green/40 text-green text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
-        ⚡ Spring Special — First 10 Clients Only
+        ⚡ Spring Special — Only 10 Spots Open
       </div>
       <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6">
         Own Your Website.<br />
@@ -202,8 +202,8 @@
     <div class="max-w-5xl mx-auto">
       <!-- Spring Special Banner -->
       <div class="bg-green text-navy font-bold text-center py-3 px-4 rounded-xl mb-10 text-sm md:text-base">
-        ⚡ SPRING SPECIAL — First 10 Clients Only. After that, prices go up.
-        <span class="ml-2 bg-navy text-green px-3 py-0.5 rounded-full text-sm">10 of 10 spots remaining</span>
+        ⚡ SPRING SPECIAL — Only 10 Spots Open. Get Your Slot Before Prices Go Back Up.
+        <span class="ml-2 bg-navy text-green px-3 py-0.5 rounded-full text-sm" data-spot-count>10 spots open at Spring Special pricing</span>
       </div>
 
       <div class="text-center mb-12">
@@ -659,6 +659,16 @@
         sendChatMessage();
       }
     });
+
+    fetch('/api/config')
+      .then(r => r.json())
+      .then(c => {
+        const el = document.querySelector('[data-spot-count]');
+        if (el && typeof c.spotCount === 'number') {
+          el.textContent = `${c.spotCount} spots open at Spring Special pricing`;
+        }
+      })
+      .catch(() => {});
   </script>
 </body>
 </html>
