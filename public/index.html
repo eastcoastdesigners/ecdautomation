@@ -6,30 +6,13 @@
   <title>East Coast Designers | AI Automation</title>
   <meta name="description" content="Custom websites + AI automation for small business owners. You own the code. No lock-in. Built in 14 days." />
 
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Instrument Serif, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS CDN — kept for layout utilities only -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: '#0F172A',
-            green: '#22C55E',
-            offwhite: '#FAFAFA',
-            nearblack: '#111827'
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
 
   <!-- Meta Pixel -->
   <script>
@@ -47,361 +30,806 @@
   </noscript>
 
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #111827; }
-    .gradient-hero { background: linear-gradient(135deg, #0F172A 0%, #1e293b 60%, #0f2a1e 100%); }
-    .green-glow { box-shadow: 0 0 30px rgba(34, 197, 94, 0.25); }
-    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
-    .step-line::after {
-      content: '';
+    :root {
+      --color-bg: #FAF8F3;
+      --color-bg-dark: #1A1814;
+      --color-text: #1A1814;
+      --color-text-light: #FAF8F3;
+      --color-text-muted: #6B6660;
+      --color-text-muted-dark: #9A938A;
+      --color-accent: #C2410C;
+      --color-accent-soft: #FED7AA;
+      --color-border: #E5DFD3;
+      --color-border-dark: #2A2620;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --t-base: 300ms;
+      --t-slow: 700ms;
+
+      --container: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.6;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    .serif { font-family: 'Instrument Serif', Georgia, serif; }
+    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    .italic { font-style: italic; }
+
+    .h-display {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(44px, 8vw, 96px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      margin: 0;
+    }
+    .h-section {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      font-weight: 400;
+      margin: 0;
+    }
+    .h-card {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      font-weight: 400;
+      margin: 0;
+    }
+    .body-large { font-size: clamp(18px, 1.4vw, 22px); line-height: 1.5; color: var(--color-text); }
+    .body { font-size: 17px; line-height: 1.6; color: var(--color-text); }
+    .body-muted { color: var(--color-text-muted); }
+    .body-muted-dark { color: var(--color-text-muted-dark); }
+    .body-small { font-size: 14px; line-height: 1.5; font-weight: 500; }
+
+    .label-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+    }
+    .label-mono--dark { color: var(--color-text-muted-dark); }
+    .label-mono--accent { color: var(--color-accent); }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: var(--container); margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+    @media (max-width: 640px) { .container { padding-left: 20px; padding-right: 20px; } }
+    .section { padding-top: clamp(64px, 10vw, 128px); padding-bottom: clamp(64px, 10vw, 128px); position: relative; overflow: hidden; }
+    .section--dark { background: var(--color-bg-dark); color: var(--color-text-light); }
+    .section--dark .body-muted { color: var(--color-text-muted-dark); }
+    .section--dark .label-mono { color: var(--color-text-muted-dark); }
+
+    .hairline { border: 0; height: 1px; background: var(--color-border); margin: 0; }
+    .section--dark .hairline { background: var(--color-border-dark); }
+
+    .w-60 { max-width: 60%; }
+    .w-50 { max-width: 50%; }
+    @media (max-width: 768px) { .w-60, .w-50 { max-width: 100%; } }
+
+    /* ===== SECTION NUMBER BG ===== */
+    .section-num-bg {
       position: absolute;
-      top: 24px;
-      left: 50%;
+      top: clamp(40px, 8vw, 96px);
+      right: -20px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(180px, 28vw, 320px);
+      line-height: 0.85;
+      color: var(--color-text);
+      opacity: 0.05;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    .section--dark .section-num-bg { color: var(--color-text-light); opacity: 0.05; }
+    .section > .container { position: relative; z-index: 1; }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
+      display: inline-block;
+      background: var(--color-text);
+      color: var(--color-bg);
+      padding: 16px 28px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--t-base) var(--ease), color var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+    }
+    .btn-primary:hover { background: var(--color-accent); color: var(--color-bg); }
+    .section--dark .btn-primary { background: var(--color-bg); color: var(--color-text); }
+    .section--dark .btn-primary:hover { background: var(--color-accent-soft); color: var(--color-text); }
+
+    .btn-secondary {
+      display: inline-block;
+      color: var(--color-accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-accent);
+      padding-bottom: 2px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      transition: border-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+    }
+    .btn-secondary:hover { color: var(--color-text); border-bottom-color: var(--color-text); }
+    .section--dark .btn-secondary:hover { color: var(--color-text-light); border-bottom-color: var(--color-text-light); }
+
+    /* ===== NAV ===== */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background var(--t-base) var(--ease), border-color var(--t-base) var(--ease), backdrop-filter var(--t-base) var(--ease);
+    }
+    .site-nav--scrolled {
+      background: rgba(250, 248, 243, 0.95);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-bottom-color: var(--color-border);
+    }
+    .nav-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .nav-logo { line-height: 1; }
+    .nav-logo-name { font-family: 'Instrument Serif', serif; font-size: 18px; color: var(--color-text); display: block; }
+    .nav-logo-kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-top: 4px; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-link { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; color: var(--color-text); text-decoration: none; transition: color var(--t-base) var(--ease); }
+    .nav-link:hover { color: var(--color-accent); }
+    .nav-cta { margin-left: 8px; padding: 10px 20px; font-size: 14px; }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    .nav-mobile-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--color-text); }
+    @media (max-width: 768px) { .nav-mobile-btn { display: block; } }
+    .nav-mobile-menu { display: none; padding: 16px 0 8px 0; }
+    .nav-mobile-menu.open { display: block; }
+    .nav-mobile-menu .nav-link { display: block; padding: 12px 0; border-bottom: 1px solid var(--color-border); }
+    .nav-mobile-menu .nav-cta { display: inline-block; margin-top: 12px; }
+
+    /* ===== HERO ===== */
+    .hero { min-height: 85vh; padding-top: 180px; padding-bottom: 80px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+    .hero-headline { margin-top: 24px; margin-bottom: 32px; max-width: 60%; }
+    @media (max-width: 768px) { .hero-headline { max-width: 100%; } }
+    .hero-sub { max-width: 50%; margin-bottom: 40px; color: var(--color-text-muted); }
+    @media (max-width: 768px) { .hero-sub { max-width: 100%; } }
+    .hero-ctas { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    .hero-below-fold { margin-top: clamp(60px, 12vh, 120px); }
+    .hero-below-fold .label-mono { display: block; margin-top: 16px; }
+
+    /* ===== PAIN / VALUE POINTS ===== */
+    .point-row { padding: clamp(64px, 9vw, 96px) 0; position: relative; }
+    .point-row + .point-row { border-top: 1px solid var(--color-border); }
+    .section--dark .point-row + .point-row { border-top-color: var(--color-border-dark); }
+    .point-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(120px, 18vw, 200px);
+      line-height: 0.85;
+      opacity: 0.07;
+      color: currentColor;
+      position: absolute;
+      left: -8px; top: 30%;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    .point-body { position: relative; z-index: 1; max-width: 700px; }
+    .point-headline { margin-bottom: 20px; }
+    .point-text { font-size: 18px; line-height: 1.6; color: var(--color-text-muted); }
+    .section--dark .point-text { color: var(--color-text-muted-dark); }
+
+    /* ===== PULL QUOTE ===== */
+    .pull-quote { padding: clamp(40px, 6vw, 64px) 0; margin: 0 auto; max-width: 800px; text-align: center; }
+    .pull-quote .label-mono { display: block; margin: 20px 0; }
+    .pull-quote-text {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(24px, 3.4vw, 36px);
+      line-height: 1.3;
+      color: var(--color-text);
+      margin: 20px 0;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: clamp(40px, 6vw, 80px); }
+    @media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .pricing-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border-radius: 4px;
+    }
+    .pricing-card--featured { border: 1px solid var(--color-accent); }
+    .pricing-card-tag {
+      position: absolute;
+      top: -10px;
+      left: 32px;
+      background: var(--color-bg);
+      padding: 0 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+    .pricing-name { margin-bottom: 16px; }
+    .pricing-price {
+      font-family: 'Instrument Serif', serif;
+      font-size: 56px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+    .pricing-terms { font-size: 13px; color: var(--color-text-muted); margin-bottom: 20px; }
+    .pricing-divider { height: 1px; background: var(--color-border); margin: 0 0 20px 0; border: 0; }
+    .pricing-list { list-style: none; padding: 0; margin: 0 0 32px 0; flex: 1; }
+    .pricing-list li {
+      position: relative;
+      padding: 8px 0 8px 18px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--color-text);
+    }
+    .pricing-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 16px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+    .care-package-line {
+      margin-top: clamp(40px, 6vw, 64px);
+      padding-top: 32px;
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+      font-size: 15px;
+      color: var(--color-text-muted);
+    }
+    .care-package-line strong { color: var(--color-text); font-weight: 500; }
+
+    /* ===== PROCESS TIMELINE ===== */
+    .timeline { margin-top: clamp(40px, 6vw, 80px); position: relative; max-width: 800px; }
+    .timeline-step {
+      position: relative;
+      padding: 32px 0 32px 90px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .timeline-step:last-child { border-bottom: none; }
+    .timeline-num {
+      position: absolute;
+      left: 0; top: 32px;
+      font-family: 'Instrument Serif', serif;
+      font-size: 64px;
+      line-height: 1;
+      color: var(--color-text);
+      opacity: 0.15;
+      width: 70px;
+    }
+    .timeline-name { margin-bottom: 8px; }
+    .timeline-desc { font-size: 17px; color: var(--color-text-muted); }
+    @media (max-width: 640px) {
+      .timeline-step { padding-left: 64px; }
+      .timeline-num { font-size: 44px; width: 56px; }
+    }
+
+    /* ===== LEAD FORM ===== */
+    .lead-form { max-width: 640px; margin-top: clamp(40px, 6vw, 64px); }
+    .form-field { margin-bottom: 28px; }
+    .form-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 10px;
+    }
+    .form-input, .form-textarea {
       width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, #22C55E, transparent);
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--color-border);
+      padding: 10px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      color: var(--color-text);
+      transition: border-color var(--t-base) var(--ease), border-bottom-width var(--t-base) var(--ease);
+      outline: none;
+      border-radius: 0;
     }
-    @keyframes pulse-green {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-      50% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+    .form-input:focus, .form-textarea:focus {
+      border-bottom: 2px solid var(--color-accent);
+      padding-bottom: 9px;
     }
-    .pulse { animation: pulse-green 2s infinite; }
+    .form-textarea { resize: vertical; min-height: 90px; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--color-text-muted); opacity: 0.6; }
+    .form-submit {
+      width: 100%;
+      cursor: pointer;
+    }
+    @media (min-width: 640px) { .form-submit { width: auto; } }
+    .form-error, .form-success {
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 15px;
+      border-radius: 4px;
+      border: 1px solid var(--color-border);
+    }
+    .form-error { color: var(--color-accent); border-color: var(--color-accent); background: rgba(194, 65, 12, 0.04); }
+    .form-success-block {
+      padding: 48px 0;
+      max-width: 640px;
+    }
+    .form-success-block .label-mono { display: block; margin-bottom: 16px; }
+    .form-success-block .h-section { margin-bottom: 16px; }
+
+    /* ===== FOOTER ===== */
+    .site-footer { background: var(--color-bg-dark); color: var(--color-text-light); padding: 48px 0 32px 0; }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted-dark);
+      text-decoration: none;
+      transition: color var(--t-base) var(--ease);
+    }
+    .footer-link:hover { color: var(--color-accent-soft); }
+    .footer-copy {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border-dark);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--color-text-muted-dark);
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== CHAT WIDGET ===== */
+    #chatWidget { position: fixed; bottom: 24px; right: 24px; z-index: 90; display: flex; flex-direction: column; align-items: flex-end; }
+    #chatToggleBtn {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--color-bg-dark);
+      color: var(--color-bg);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      transition: transform var(--t-base) var(--ease), background var(--t-base) var(--ease);
+      position: relative;
+    }
+    #chatToggleBtn::after {
+      content: "";
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+    #chatToggleBtn:hover { transform: translateY(-2px); }
+    #chatToggleBtn svg { width: 22px; height: 22px; stroke-width: 1.5; }
+
+    #chatWindow {
+      margin-bottom: 12px;
+      width: min(400px, calc(100vw - 48px));
+      height: min(600px, calc(100vh - 120px));
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header { padding: 24px 24px 16px 24px; border-bottom: 1px solid var(--color-border); }
+    .chat-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .chat-greeting { font-family: 'Instrument Serif', serif; font-size: 28px; line-height: 1.1; color: var(--color-text); margin: 0; }
+    .chat-sub { font-size: 13px; color: var(--color-text-muted); margin-top: 8px; }
+    .chat-close { background: none; border: none; cursor: pointer; color: var(--color-text-muted); padding: 4px; }
+    .chat-close:hover { color: var(--color-text); }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+    .chat-bubble { padding: 12px 16px; font-size: 14px; line-height: 1.5; max-width: 80%; border-radius: 4px; }
+    .chat-bubble--bot { background: var(--color-bg); border: 1px solid var(--color-border); color: var(--color-text); align-self: flex-start; }
+    .chat-bubble--user { background: var(--color-text); color: var(--color-bg); align-self: flex-end; }
+    .chat-typing { display: flex; gap: 6px; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: 4px; align-self: flex-start; }
+    .chat-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-muted); animation: chat-pulse 1.4s infinite; }
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes chat-pulse { 0%, 60%, 100% { opacity: 0.2; } 30% { opacity: 1; } }
+    .chat-input-row { padding: 16px 20px; border-top: 1px solid var(--color-border); display: flex; gap: 12px; align-items: center; }
+    #chatInput {
+      flex: 1;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--color-border);
+      padding: 8px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      border-radius: 0;
+      color: var(--color-text);
+    }
+    #chatInput:focus { border-bottom-color: var(--color-accent); }
+    #chatSendBtn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: var(--color-bg);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--t-base) var(--ease);
+    }
+    #chatSendBtn:hover { background: var(--color-text); }
+    #chatSendBtn svg { width: 16px; height: 16px; stroke-width: 1.75; }
+    .hidden { display: none !important; }
+
+    /* ===== FADE IN ON SCROLL ===== */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); }
+    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ===== CAL.COM EMBED CONTAINER ===== */
+    .cal-embed { width: 100%; height: 700px; overflow: scroll; margin-top: clamp(40px, 6vw, 64px); }
   </style>
 </head>
-<body class="font-sans">
+<body>
 
   <!-- ============================================================ -->
   <!-- HEADER / NAV -->
   <!-- ============================================================ -->
-  <header class="bg-navy sticky top-0 z-50 shadow-lg">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <div class="text-white font-bold text-lg leading-tight">
-        <span class="text-green">East Coast Designers</span>
-        <span class="text-gray-400 font-normal text-sm block sm:inline sm:ml-1">| AI Automation</span>
-      </div>
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-        <a href="#services" class="text-gray-300 hover:text-green transition-colors">Services</a>
-        <a href="#pricing" class="text-gray-300 hover:text-green transition-colors">Pricing</a>
-        <a href="#contact" class="text-gray-300 hover:text-green transition-colors">Contact</a>
-        <a href="#calendar" class="bg-green text-navy font-bold px-4 py-2 rounded-lg hover:bg-green-400 transition-colors">Book a Call</a>
+  <header class="site-nav" id="siteNav">
+    <div class="container nav-row">
+      <a href="#top" class="nav-logo" style="text-decoration: none;">
+        <span class="nav-logo-name">East Coast Designers</span>
+        <span class="nav-logo-kicker">AI Automation</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a href="#calendar" class="btn-primary nav-cta">Book a call</a>
       </nav>
-      <!-- Mobile menu button -->
-      <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-white">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      <button id="mobileMenuBtn" class="nav-mobile-btn" aria-label="Toggle menu">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
         </svg>
       </button>
     </div>
-    <!-- Mobile nav -->
-    <div id="mobileMenu" class="hidden md:hidden bg-navy border-t border-gray-800 px-4 pb-4">
-      <a href="#services" class="block py-2 text-gray-300 hover:text-green">Services</a>
-      <a href="#pricing" class="block py-2 text-gray-300 hover:text-green">Pricing</a>
-      <a href="#contact" class="block py-2 text-gray-300 hover:text-green">Contact</a>
-      <a href="#calendar" class="block mt-2 bg-green text-navy font-bold px-4 py-2 rounded-lg text-center">Book a Call</a>
+    <div id="mobileMenu" class="nav-mobile-menu container">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#calendar" class="btn-primary nav-cta">Book a call</a>
     </div>
   </header>
 
+  <span id="top"></span>
+
   <!-- ============================================================ -->
-  <!-- HERO -->
+  <!-- HERO (01) -->
   <!-- ============================================================ -->
-  <section class="gradient-hero text-white py-20 md:py-32 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="inline-block bg-green/20 border border-green/40 text-green text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
-        ⚡ Spring Special — Only 10 Spots Open
-      </div>
-      <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6">
-        Own Your Website.<br />
-        Own Your AI.<br />
-        <span class="text-green">Own Your Business.</span>
+  <section class="hero section" id="hero">
+    <div class="container">
+      <span class="label-mono fade-in">01 — East Coast Designers</span>
+      <h1 class="h-display hero-headline fade-in">
+        Custom websites and AI automation. <span class="italic">Built once. Owned forever.</span>
       </h1>
-      <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-        We build custom websites + AI automation for small business owners.
-        You get the code. No agency lock-in. No forever subscriptions.
-        <strong class="text-white">Built in 14 days.</strong>
+      <p class="body-large hero-sub fade-in">
+        We build custom websites + AI automation for small business owners who are done renting their digital storefronts. You get the code. You hold the keys.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#calendar" class="bg-green text-navy font-bold text-lg px-8 py-4 rounded-xl hover:bg-green-400 transition-all green-glow pulse">
-          Book a 30-Minute Call
-        </a>
-        <a href="#pricing" class="border-2 border-white/30 text-white font-semibold text-lg px-8 py-4 rounded-xl hover:border-green hover:text-green transition-all">
-          See Pricing
-        </a>
+      <div class="hero-ctas fade-in">
+        <a href="#calendar" class="btn-primary">Book a 30-minute call</a>
+        <a href="#pricing" class="btn-secondary">See pricing</a>
+      </div>
+      <div class="hero-below-fold fade-in">
+        <hr class="hairline" />
+        <span class="label-mono label-mono--accent" data-spot-count-template="SPRING SPECIAL — {N} SPOTS OPEN — SCROLL FOR PRICING">SPRING SPECIAL — 10 SPOTS OPEN — SCROLL FOR PRICING</span>
       </div>
     </div>
   </section>
 
   <!-- ============================================================ -->
-  <!-- THE PROBLEM -->
+  <!-- THE PROBLEM (02) -->
   <!-- ============================================================ -->
-  <section id="services" class="bg-white py-20 px-4">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-14">
-        <h2 class="text-3xl md:text-4xl font-black text-navy mb-4">Tired of Renting Your Business?</h2>
-        <p class="text-gray-500 text-lg max-w-xl mx-auto">Most small business owners are paying for tools they don't own. Here's what that looks like.</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="card-hover bg-red-50 border border-red-100 rounded-2xl p-7">
-          <div class="text-3xl mb-4">🔒</div>
-          <h3 class="font-bold text-navy text-lg mb-3">Your website lives on someone else's platform.</h3>
-          <p class="text-gray-600 leading-relaxed">Stop paying $200/month for a site you don't own. Cancel and you lose everything.</p>
-        </div>
-        <div class="card-hover bg-orange-50 border border-orange-100 rounded-2xl p-7">
-          <div class="text-3xl mb-4">🩹</div>
-          <h3 class="font-bold text-navy text-lg mb-3">Your AI tools talk to each other through duct tape.</h3>
-          <p class="text-gray-600 leading-relaxed">Zapier here. ChatGPT there. Nothing works as one system.</p>
-        </div>
-        <div class="card-hover bg-yellow-50 border border-yellow-100 rounded-2xl p-7">
-          <div class="text-3xl mb-4">🤷</div>
-          <h3 class="font-bold text-navy text-lg mb-3">Your "marketing agency" charges $5,000/month and you can't read the code.</h3>
-          <p class="text-gray-600 leading-relaxed">What did they actually build? You'll never know.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="section" id="services">
+    <span class="section-num-bg" aria-hidden="true">02</span>
+    <div class="container">
+      <span class="label-mono fade-in">02 — The Problem</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: clamp(40px, 6vw, 80px);">
+        Most small businesses don't own their website. <span class="italic">They rent it.</span>
+      </h2>
 
-  <!-- ============================================================ -->
-  <!-- THE SOLUTION -->
-  <!-- ============================================================ -->
-  <section class="bg-navy py-20 px-4">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-14">
-        <h2 class="text-3xl md:text-4xl font-black text-white mb-4">You Own It.</h2>
-        <p class="text-gray-400 text-lg max-w-xl mx-auto">This is the whole deal. Three things that change everything.</p>
+      <div class="point-row fade-in">
+        <span class="point-num" aria-hidden="true">01</span>
+        <div class="point-body">
+          <h3 class="h-card point-headline">Your website lives on someone else's platform.</h3>
+          <p class="point-text">Stop paying $200/month for a site you don't own. Cancel and you lose everything you built.</p>
+        </div>
       </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="card-hover bg-white/5 border border-white/10 rounded-2xl p-7 text-center">
-          <div class="w-14 h-14 bg-green/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
-            <span class="text-green text-2xl font-black">1</span>
-          </div>
-          <h3 class="font-bold text-white text-lg mb-3">You get the code.</h3>
-          <p class="text-gray-400 leading-relaxed">We hand you the entire site. It's yours. We can't take it back.</p>
+
+      <div class="point-row fade-in">
+        <span class="point-num" aria-hidden="true">02</span>
+        <div class="point-body">
+          <h3 class="h-card point-headline">You can't update your own hours without paying $150 an hour.</h3>
+          <p class="point-text">Small changes shouldn't cost agency rates. But on locked-in platforms, that's exactly what happens — every time.</p>
         </div>
-        <div class="card-hover bg-green/10 border border-green/30 rounded-2xl p-7 text-center">
-          <div class="w-14 h-14 bg-green/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
-            <span class="text-green text-2xl font-black">2</span>
-          </div>
-          <h3 class="font-bold text-white text-lg mb-3">You host it for $5 a month.</h3>
-          <p class="text-gray-400 leading-relaxed">Not $200. Five.</p>
-        </div>
-        <div class="card-hover bg-white/5 border border-white/10 rounded-2xl p-7 text-center">
-          <div class="w-14 h-14 bg-green/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
-            <span class="text-green text-2xl font-black">3</span>
-          </div>
-          <h3 class="font-bold text-white text-lg mb-3">You can hire any developer to update it.</h3>
-          <p class="text-gray-400 leading-relaxed">We're not your only option. Ever.</p>
+      </div>
+
+      <div class="point-row fade-in">
+        <span class="point-num" aria-hidden="true">03</span>
+        <div class="point-body">
+          <h3 class="h-card point-headline">When you stop paying, you lose everything.</h3>
+          <p class="point-text">No code. No content. No customer data. The work you paid for evaporates the day the invoice goes unpaid.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================ -->
-  <!-- PRICING -->
+  <!-- THE ALTERNATIVE (03) -->
   <!-- ============================================================ -->
-  <section id="pricing" class="bg-offwhite py-20 px-4">
-    <div class="max-w-5xl mx-auto">
-      <!-- Spring Special Banner -->
-      <div class="bg-green text-navy font-bold text-center py-3 px-4 rounded-xl mb-10 text-sm md:text-base">
-        ⚡ SPRING SPECIAL — Only 10 Spots Open. Get Your Slot Before Prices Go Back Up.
-        <span class="ml-2 bg-navy text-green px-3 py-0.5 rounded-full text-sm" data-spot-count>10 spots open at Spring Special pricing</span>
+  <section class="section" id="alternative">
+    <span class="section-num-bg" aria-hidden="true">03</span>
+    <div class="container">
+      <span class="label-mono fade-in">03 — The Alternative</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: clamp(40px, 6vw, 80px);">
+        What if you actually <span class="italic">owned</span> the thing you paid for?
+      </h2>
+
+      <div class="point-row fade-in">
+        <span class="point-num" aria-hidden="true">01</span>
+        <div class="point-body">
+          <h3 class="h-card point-headline">You get the code. The site is yours.</h3>
+          <p class="point-text">We hand you the entire codebase on launch day. It lives on your hosting, under your account, on your terms.</p>
+        </div>
       </div>
 
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-black text-navy mb-4">Simple, Honest Pricing</h2>
-        <p class="text-gray-500 text-lg">Half down. Half on delivery. Payment plans available.</p>
+      <div class="point-row fade-in">
+        <span class="point-num" aria-hidden="true">02</span>
+        <div class="point-body">
+          <h3 class="h-card point-headline">Hosting is $5 a month. Not $200.</h3>
+          <p class="point-text">We deploy to Railway. The price is the same whether you have ten visitors a day or ten thousand. Nothing about hosting needs to be expensive.</p>
+        </div>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6 mb-10">
+      <div class="point-row fade-in">
+        <span class="point-num" aria-hidden="true">03</span>
+        <div class="point-body">
+          <h3 class="h-card point-headline">You can hire any developer to update it. We're never your only option.</h3>
+          <p class="point-text">It's a standard codebase. Any developer can read it, change it, extend it. You're not held hostage by us, or anyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PRICING (04) -->
+  <!-- ============================================================ -->
+  <section class="section" id="pricing">
+    <span class="section-num-bg" aria-hidden="true">04</span>
+    <div class="container">
+      <span class="label-mono fade-in">04 — Investment</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: clamp(40px, 6vw, 64px);">
+        Three packages. One promise. <span class="italic">You own everything.</span>
+      </h2>
+
+      <!-- Editorial Spring Special pull quote -->
+      <div class="pull-quote fade-in">
+        <hr class="hairline" />
+        <span class="label-mono label-mono--accent">Current Special</span>
+        <p class="pull-quote-text" data-spot-count-template="&ldquo;{N} spots open at Spring Special pricing. Once they're claimed, prices return to standard.&rdquo;">&ldquo;10 spots open at Spring Special pricing. Once they're claimed, prices return to standard.&rdquo;</p>
+        <hr class="hairline" />
+      </div>
+
+      <div class="pricing-grid">
         <!-- Tier 1 -->
-        <div class="card-hover bg-white border border-gray-200 rounded-2xl p-7 flex flex-col">
-          <h3 class="font-bold text-navy text-xl mb-2">Website Only</h3>
-          <div class="text-4xl font-black text-navy mb-1">$2,000</div>
-          <p class="text-gray-400 text-sm mb-6">One payment. Yours forever.</p>
-          <ul class="space-y-3 mb-8 flex-1">
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> Custom landing page</li>
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> Mobile responsive</li>
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> Hosted on Railway</li>
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> You own the code</li>
+        <div class="pricing-card fade-in">
+          <h3 class="h-card pricing-name">Website Only</h3>
+          <div class="pricing-price">$2,000</div>
+          <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
+          <hr class="pricing-divider" />
+          <ul class="pricing-list">
+            <li>Custom landing page</li>
+            <li>Mobile responsive</li>
+            <li>Hosted on Railway</li>
+            <li>You own the code</li>
           </ul>
-          <a href="#calendar" class="block text-center border-2 border-navy text-navy font-bold py-3 rounded-xl hover:bg-navy hover:text-white transition-all">Book a Call</a>
+          <a href="#calendar" class="btn-primary">Choose this package</a>
         </div>
 
-        <!-- Tier 2 — Most Popular -->
-        <div class="card-hover bg-navy border-2 border-green rounded-2xl p-7 flex flex-col relative green-glow">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-green text-navy text-xs font-black px-4 py-1 rounded-full">⭐ Most Popular</div>
-          <h3 class="font-bold text-white text-xl mb-2">Website + CRM</h3>
-          <div class="text-4xl font-black text-green mb-1">$3,500</div>
-          <p class="text-gray-400 text-sm mb-6">One payment. Yours forever.</p>
-          <ul class="space-y-3 mb-8 flex-1">
-            <li class="flex items-start gap-2 text-gray-300 text-sm"><span class="text-green mt-0.5">✓</span> Everything in Website Only</li>
-            <li class="flex items-start gap-2 text-gray-300 text-sm"><span class="text-green mt-0.5">✓</span> Lead tracking</li>
-            <li class="flex items-start gap-2 text-gray-300 text-sm"><span class="text-green mt-0.5">✓</span> Job status CRM</li>
-            <li class="flex items-start gap-2 text-gray-300 text-sm"><span class="text-green mt-0.5">✓</span> Admin login panel</li>
+        <!-- Tier 2 — Featured -->
+        <div class="pricing-card pricing-card--featured fade-in">
+          <span class="pricing-card-tag">Most chosen</span>
+          <h3 class="h-card pricing-name">Website + CRM</h3>
+          <div class="pricing-price">$3,500</div>
+          <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
+          <hr class="pricing-divider" />
+          <ul class="pricing-list">
+            <li>Everything in Website Only</li>
+            <li>Lead tracking</li>
+            <li>Job status CRM</li>
+            <li>Admin login panel</li>
           </ul>
-          <a href="#calendar" class="block text-center bg-green text-navy font-bold py-3 rounded-xl hover:bg-green-400 transition-all">Book a Call</a>
+          <a href="#calendar" class="btn-primary">Choose this package</a>
         </div>
 
         <!-- Tier 3 -->
-        <div class="card-hover bg-white border border-gray-200 rounded-2xl p-7 flex flex-col">
-          <h3 class="font-bold text-navy text-xl mb-2">All-in-One System</h3>
-          <div class="text-4xl font-black text-navy mb-1">$5,000</div>
-          <p class="text-gray-400 text-sm mb-6">One payment. Yours forever.</p>
-          <ul class="space-y-3 mb-8 flex-1">
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> Everything in Website + CRM</li>
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> AI multilingual chatbot</li>
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> Calendar booking</li>
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> Email automation</li>
-            <li class="flex items-start gap-2 text-gray-600 text-sm"><span class="text-green mt-0.5">✓</span> Stripe payments</li>
+        <div class="pricing-card fade-in">
+          <h3 class="h-card pricing-name">All-in-One System</h3>
+          <div class="pricing-price">$5,000</div>
+          <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
+          <hr class="pricing-divider" />
+          <ul class="pricing-list">
+            <li>Everything in Website + CRM</li>
+            <li>AI multilingual chatbot</li>
+            <li>Calendar booking</li>
+            <li>Email automation</li>
+            <li>Stripe payments</li>
           </ul>
-          <a href="#calendar" class="block text-center border-2 border-navy text-navy font-bold py-3 rounded-xl hover:bg-navy hover:text-white transition-all">Book a Call</a>
+          <a href="#calendar" class="btn-primary">Choose this package</a>
         </div>
       </div>
 
-      <!-- Care Package -->
-      <div class="bg-white border-2 border-dashed border-gray-200 rounded-2xl p-7 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div>
-          <div class="text-sm font-bold text-green uppercase tracking-wide mb-1">Optional Add-On</div>
-          <h3 class="font-bold text-navy text-xl mb-2">Care Package</h3>
-          <p class="text-gray-600">Hosting management, minor updates, ongoing support. We handle everything. You focus on your business.</p>
+      <div class="care-package-line fade-in">
+        <strong>Optional:</strong> Care Package at $300/month for ongoing updates, hosting, and support.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PROCESS (05) -->
+  <!-- ============================================================ -->
+  <section class="section" id="process">
+    <span class="section-num-bg" aria-hidden="true">05</span>
+    <div class="container">
+      <span class="label-mono fade-in">05 — Process</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px;">
+        From conversation to launch in 14 days.
+      </h2>
+
+      <div class="timeline">
+        <div class="timeline-step fade-in">
+          <span class="timeline-num">01</span>
+          <h3 class="h-card timeline-name">Book.</h3>
+          <p class="timeline-desc">A 30-minute conversation. We figure out exactly what you need.</p>
         </div>
-        <div class="text-center shrink-0">
-          <div class="text-4xl font-black text-navy">$300<span class="text-lg text-gray-400">/mo</span></div>
-          <a href="#calendar" class="mt-3 block bg-gray-100 hover:bg-gray-200 text-navy font-bold px-6 py-2.5 rounded-xl transition-all text-sm">Add This</a>
+        <div class="timeline-step fade-in">
+          <span class="timeline-num">02</span>
+          <h3 class="h-card timeline-name">Build.</h3>
+          <p class="timeline-desc">We build your system over 14 days. You see progress every 3 days.</p>
+        </div>
+        <div class="timeline-step fade-in">
+          <span class="timeline-num">03</span>
+          <h3 class="h-card timeline-name">Launch.</h3>
+          <p class="timeline-desc">We hand you the code, the logins, and the keys. You're live.</p>
+        </div>
+        <div class="timeline-step fade-in">
+          <span class="timeline-num">04</span>
+          <h3 class="h-card timeline-name">Own.</h3>
+          <p class="timeline-desc">You run it. Or we manage it for $300/month. Your call.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================ -->
-  <!-- HOW IT WORKS -->
+  <!-- ABOUT (06) -->
   <!-- ============================================================ -->
-  <section class="bg-white py-20 px-4">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-14">
-        <h2 class="text-3xl md:text-4xl font-black text-navy mb-4">How It Works</h2>
-        <p class="text-gray-500 text-lg">Four steps from call to ownership.</p>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green/10 border-2 border-green/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl">📞</span>
-          </div>
-          <div class="text-green font-black text-sm uppercase tracking-widest mb-2">Step 1</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Book</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">15-minute call. We figure out what you need.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green/10 border-2 border-green/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl">🔨</span>
-          </div>
-          <div class="text-green font-black text-sm uppercase tracking-widest mb-2">Step 2</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Build</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">We build your system in 14 days. You see progress every 3 days.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green/10 border-2 border-green/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl">🚀</span>
-          </div>
-          <div class="text-green font-black text-sm uppercase tracking-widest mb-2">Step 3</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Launch</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">We hand you the keys. The code is yours.</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green/10 border-2 border-green/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl">🏆</span>
-          </div>
-          <div class="text-green font-black text-sm uppercase tracking-widest mb-2">Step 4</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Own</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">You run it. Or we manage it for $300/month. Your call.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- ABOUT -->
-  <!-- ============================================================ -->
-  <section class="bg-navy py-20 px-4">
-    <div class="max-w-4xl mx-auto">
-      <div class="md:flex items-center gap-12">
-        <div class="mb-8 md:mb-0 shrink-0 text-center md:text-left">
-          <!-- AI-generated avatar placeholder — owner to replace -->
-          <div class="w-40 h-40 mx-auto md:mx-0 rounded-3xl bg-gradient-to-br from-green/30 to-navy border-2 border-green/40 flex items-center justify-center">
-            <span class="text-6xl">👩‍💻</span>
-          </div>
-          <p class="text-gray-500 text-xs mt-2">East Coast Designers Team</p>
-        </div>
-        <div>
-          <h2 class="text-3xl md:text-4xl font-black text-white mb-6">East Coast Designers</h2>
-          <div class="space-y-4 text-gray-300 leading-relaxed">
-            <p>East Coast Designers was built on a simple idea: small business owners deserve to own their tools. Not rent them. Not lease them. <strong class="text-white">Own them.</strong></p>
-            <p>We started in trades. We've built websites since 2010. Now we build AI automation systems that small businesses fully own.</p>
-            <p>We work with contractors, trades, dentists, salons, anyone who needs a website that works — and an AI that doesn't lock them in.</p>
-            <p class="text-green font-bold text-lg">You own what we build. That's the whole deal.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- LEAD FORM -->
-  <!-- ============================================================ -->
-  <section id="contact" class="bg-offwhite py-20 px-4">
-    <div class="max-w-xl mx-auto">
-      <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-black text-navy mb-4">Tell Us What You Need</h2>
-        <p class="text-gray-500 text-lg">No sales pitch. No pressure. Just a conversation.</p>
-      </div>
-      <form id="leadForm" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-5">
-        <div>
-          <label class="block text-sm font-semibold text-navy mb-1.5">Name <span class="text-red-500">*</span></label>
-          <input type="text" id="leadName" required placeholder="Your full name"
-            class="w-full border border-gray-200 rounded-xl px-4 py-3 text-nearblack focus:outline-none focus:border-green focus:ring-2 focus:ring-green/20 transition-all" />
-        </div>
-        <div>
-          <label class="block text-sm font-semibold text-navy mb-1.5">Email <span class="text-red-500">*</span></label>
-          <input type="email" id="leadEmail" required placeholder="your@email.com"
-            class="w-full border border-gray-200 rounded-xl px-4 py-3 text-nearblack focus:outline-none focus:border-green focus:ring-2 focus:ring-green/20 transition-all" />
-        </div>
-        <div>
-          <label class="block text-sm font-semibold text-navy mb-1.5">Phone <span class="text-red-500">*</span></label>
-          <input type="tel" id="leadPhone" required placeholder="(555) 000-0000"
-            class="w-full border border-gray-200 rounded-xl px-4 py-3 text-nearblack focus:outline-none focus:border-green focus:ring-2 focus:ring-green/20 transition-all" />
-        </div>
-        <div>
-          <label class="block text-sm font-semibold text-navy mb-1.5">What do you need? <span class="text-red-500">*</span></label>
-          <textarea id="leadMessage" required rows="4"
-            placeholder="Website? CRM? AI chatbot? All three? Just tell us in your own words."
-            class="w-full border border-gray-200 rounded-xl px-4 py-3 text-nearblack focus:outline-none focus:border-green focus:ring-2 focus:ring-green/20 transition-all resize-none"></textarea>
-        </div>
-        <div id="formError" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3"></div>
-        <div id="formSuccess" class="hidden bg-green/10 border border-green/30 text-green font-semibold text-sm rounded-xl px-4 py-3">
-          ✓ Got it! We'll reach out within 24 hours.
-        </div>
-        <button type="submit" id="leadSubmitBtn"
-          class="w-full bg-green text-navy font-black text-lg py-4 rounded-xl hover:bg-green-400 transition-all green-glow">
-          Send My Info
-        </button>
-        <p class="text-center text-gray-400 text-sm">
-          Or book a call directly ↓
-          <a href="#calendar" class="text-green hover:underline ml-1">Pick a time</a>
+  <section class="section section--dark" id="about">
+    <span class="section-num-bg" aria-hidden="true">06</span>
+    <div class="container">
+      <span class="label-mono fade-in">06 — About</span>
+      <h2 class="h-section fade-in" style="margin-top: 24px; margin-bottom: clamp(32px, 5vw, 48px);">
+        East Coast Designers.
+      </h2>
+      <div style="max-width: 60%;" class="fade-in">
+        <p class="body-large" style="margin-bottom: 24px;">
+          East Coast Designers was built on a simple idea: small business owners deserve to own their tools. Not rent them. Not lease them. Own them.
         </p>
-      </form>
+        <p class="body-large" style="margin-bottom: 24px;">
+          We started in trades. We've built websites since 2010. Now we build AI automation systems that small businesses fully own — websites, CRMs, chatbots, lead capture, all of it.
+        </p>
+        <p class="body-large">
+          We work with contractors, restaurants, salons, real estate agents, dentists, anyone who needs a website that works and an AI that doesn't lock them in. You own what we build. That's the whole deal.
+        </p>
+      </div>
     </div>
   </section>
 
   <!-- ============================================================ -->
-  <!-- CALENDAR EMBED -->
+  <!-- LEAD FORM (07) -->
   <!-- ============================================================ -->
-  <section id="calendar" class="bg-white py-20 px-4">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-black text-navy mb-4">Book a 30-Minute Call</h2>
-        <p class="text-gray-500 text-lg">Pick a time that works for you. No commitment required.</p>
+  <section class="section" id="contact">
+    <span class="section-num-bg" aria-hidden="true">07</span>
+    <div class="container">
+      <span class="label-mono fade-in">07 — Start the Conversation</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        Tell us what you need.
+      </h2>
+      <p class="body-large body-muted w-60 fade-in" style="margin-bottom: 0;">
+        We'll respond within 24 hours. No sales pitch. Just a conversation.
+      </p>
+
+      <form id="leadForm" class="lead-form fade-in" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="leadName">Name</label>
+          <input type="text" id="leadName" class="form-input" required placeholder="Your full name" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="leadEmail">Email</label>
+          <input type="email" id="leadEmail" class="form-input" required placeholder="your@email.com" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="leadPhone">Phone</label>
+          <input type="tel" id="leadPhone" class="form-input" required placeholder="(555) 000-0000" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="leadMessage">What do you need</label>
+          <textarea id="leadMessage" class="form-textarea" required rows="3" placeholder="Website? CRM? AI chatbot? All three? Just tell us in your own words."></textarea>
+        </div>
+        <div id="formError" class="form-error hidden"></div>
+        <button type="submit" id="leadSubmitBtn" class="btn-primary form-submit">Send my info</button>
+      </form>
+
+      <div id="formSuccess" class="form-success-block hidden fade-in">
+        <span class="label-mono label-mono--accent">Received</span>
+        <h2 class="h-section">Thank you. We'll respond within 24 hours.</h2>
+        <p class="body-large body-muted" style="margin-top: 16px;">
+          You can also <a href="#calendar" class="btn-secondary">book a 30-minute call</a> directly.
+        </p>
       </div>
-      <!-- Cal.com inline embed -->
-      <div style="width:100%;height:700px;overflow:scroll" id="my-cal-inline-30-min-ai-automation-consultation"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CALENDAR (08) -->
+  <!-- ============================================================ -->
+  <section class="section" id="calendar">
+    <span class="section-num-bg" aria-hidden="true">08</span>
+    <div class="container">
+      <span class="label-mono fade-in">08 — Book a Call</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        Or skip the form.
+      </h2>
+      <p class="body-large body-muted w-60 fade-in" style="margin-bottom: 0;">
+        Book a 30-minute conversation directly.
+      </p>
+
+      <div class="cal-embed fade-in" id="my-cal-inline-30-min-ai-automation-consultation"></div>
       <script type="text/javascript">
         (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
         Cal("init", "30-min-ai-automation-consultation", {origin:"https://app.cal.com"});
@@ -410,7 +838,14 @@
           config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
           calLink: "east-coast-designers/30-min-ai-automation-consultation",
         });
-        Cal.ns["30-min-ai-automation-consultation"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+        Cal.ns["30-min-ai-automation-consultation"]("ui", {
+          "hideEventTypeDetails": false,
+          "layout": "month_view",
+          "cssVarsPerTheme": {
+            "light": { "cal-brand": "#C2410C" },
+            "dark":  { "cal-brand": "#C2410C" }
+          }
+        });
       </script>
     </div>
   </section>
@@ -418,72 +853,61 @@
   <!-- ============================================================ -->
   <!-- FOOTER -->
   <!-- ============================================================ -->
-  <footer class="bg-navy text-gray-400 py-10 px-4">
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="text-sm text-center md:text-left">
-        © 2026 East Coast Designers LLC. All rights reserved.
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="nav-logo">
+          <span class="nav-logo-name" style="color: var(--color-text-light);">East Coast Designers</span>
+          <span class="nav-logo-kicker" style="color: var(--color-text-muted-dark);">AI Automation</span>
+        </div>
+        <div class="footer-links">
+          <a href="/privacy.html" class="footer-link">Privacy</a>
+          <a href="/terms.html" class="footer-link">Terms</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </div>
       </div>
-      <div class="flex items-center gap-4 text-sm">
-        <a href="/privacy.html" class="hover:text-green transition-colors">Privacy</a>
-        <span>|</span>
-        <a href="/terms.html" class="hover:text-green transition-colors">Terms</a>
-      </div>
+      <div class="footer-copy">© 2026 East Coast Designers LLC. All rights reserved.</div>
     </div>
   </footer>
 
   <!-- ============================================================ -->
   <!-- AI CHATBOT WIDGET -->
   <!-- ============================================================ -->
-  <div id="chatWidget" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-    <!-- Chat window -->
-    <div id="chatWindow" class="hidden mb-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden" style="height: 520px;">
-      <!-- Chat header -->
-      <div class="bg-navy px-4 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 bg-green/20 rounded-full flex items-center justify-center">
-            <span class="text-green text-lg">🤖</span>
-          </div>
+  <div id="chatWidget">
+    <div id="chatWindow" class="hidden">
+      <div class="chat-header">
+        <div class="chat-header-top">
           <div>
-            <div class="text-white font-bold text-sm">ECD Assistant</div>
-            <div class="text-green text-xs">Online · EN / ES / PT</div>
+            <h3 class="chat-greeting">How can we help?</h3>
+            <p class="chat-sub">We speak English, Spanish, and Portuguese.</p>
           </div>
+          <button id="closeChatBtn" class="chat-close" aria-label="Close chat">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" d="M6 6l12 12M6 18L18 6"/>
+            </svg>
+          </button>
         </div>
-        <button id="closeChatBtn" class="text-gray-400 hover:text-white transition-colors">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </div>
+      <div id="chatMessages" class="chat-messages">
+        <div class="chat-bubble chat-bubble--bot">
+          Hi. Ask me anything about our websites, AI automation, or pricing. I speak English, Spanish, and Portuguese.
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <input id="chatInput" type="text" placeholder="Type a message…" />
+        <button id="chatSendBtn" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
         </button>
       </div>
-      <!-- Messages -->
-      <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
-        <div class="flex gap-2">
-          <div class="w-7 h-7 bg-navy rounded-full flex items-center justify-center shrink-0">
-            <span class="text-xs">🤖</span>
-          </div>
-          <div class="bg-white border border-gray-100 rounded-2xl rounded-tl-none px-4 py-3 text-sm text-gray-700 max-w-xs shadow-sm">
-            Hi! I'm the East Coast Designers assistant. Ask me anything about our websites, AI automation, or pricing. I speak English, Spanish, and Portuguese.
-          </div>
-        </div>
-      </div>
-      <!-- Input -->
-      <div class="p-3 bg-white border-t border-gray-100 flex gap-2">
-        <input id="chatInput" type="text" placeholder="Type a message..."
-          class="flex-1 border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-green transition-colors" />
-        <button id="chatSendBtn" class="bg-green text-navy font-bold px-4 py-2.5 rounded-xl hover:bg-green-400 transition-all text-sm">
-          Send
-        </button>
-      </div>
     </div>
-    <!-- Toggle button -->
-    <button id="chatToggleBtn"
-      class="w-16 h-16 bg-green text-navy rounded-full shadow-xl flex items-center justify-center hover:bg-green-400 transition-all pulse"
-      aria-label="Open chat">
-      <svg id="chatIconOpen" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+    <button id="chatToggleBtn" aria-label="Open chat">
+      <svg id="chatIconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
       </svg>
-      <svg id="chatIconClose" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      <svg id="chatIconClose" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 6l12 12M6 18L18 6"/>
       </svg>
     </button>
   </div>
@@ -492,19 +916,35 @@
   <!-- JAVASCRIPT -->
   <!-- ============================================================ -->
   <script>
-    // Mobile menu toggle
-    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+    // ===== NAV: mobile menu toggle =====
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
     });
 
-    // Close mobile menu on link click
-    document.querySelectorAll('#mobileMenu a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.add('hidden');
+    // ===== NAV: blur on scroll =====
+    const siteNav = document.getElementById('siteNav');
+    function updateNav() {
+      if (window.scrollY > 50) siteNav.classList.add('site-nav--scrolled');
+      else siteNav.classList.remove('site-nav--scrolled');
+    }
+    updateNav();
+    window.addEventListener('scroll', updateNav, { passive: true });
+
+    // ===== FADE IN ON SCROLL =====
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          fadeObserver.unobserve(entry.target);
+        }
       });
-    });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
-    // Lead form submission
+    // ===== LEAD FORM SUBMISSION =====
     const leadForm = document.getElementById('leadForm');
     const formError = document.getElementById('formError');
     const formSuccess = document.getElementById('formSuccess');
@@ -513,9 +953,8 @@
     leadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       formError.classList.add('hidden');
-      formSuccess.classList.add('hidden');
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
+      submitBtn.textContent = 'Sending…';
 
       const body = {
         name: document.getElementById('leadName').value,
@@ -534,8 +973,9 @@
         const data = await res.json();
 
         if (data.success) {
+          leadForm.classList.add('hidden');
           formSuccess.classList.remove('hidden');
-          leadForm.reset();
+          formSuccess.classList.add('is-visible');
           if (typeof fbq !== 'undefined') fbq('track', 'Lead');
         } else {
           formError.textContent = data.error || 'Something went wrong. Please try again.';
@@ -546,11 +986,11 @@
         formError.classList.remove('hidden');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Send My Info';
+        submitBtn.textContent = 'Send my info';
       }
     });
 
-    // Chatbot
+    // ===== CHATBOT =====
     const chatToggleBtn = document.getElementById('chatToggleBtn');
     const chatWindow = document.getElementById('chatWindow');
     const closeChatBtn = document.getElementById('closeChatBtn');
@@ -575,41 +1015,18 @@
     closeChatBtn.addEventListener('click', toggleChat);
 
     function addMessage(text, role) {
-      const isUser = role === 'user';
-      const wrapper = document.createElement('div');
-      wrapper.className = isUser ? 'flex gap-2 justify-end' : 'flex gap-2';
-
       const bubble = document.createElement('div');
-      bubble.className = isUser
-        ? 'bg-green text-navy font-medium rounded-2xl rounded-tr-none px-4 py-3 text-sm max-w-xs'
-        : 'bg-white border border-gray-100 rounded-2xl rounded-tl-none px-4 py-3 text-sm text-gray-700 max-w-xs shadow-sm';
+      bubble.className = role === 'user' ? 'chat-bubble chat-bubble--user' : 'chat-bubble chat-bubble--bot';
       bubble.textContent = text;
-
-      if (!isUser) {
-        const avatar = document.createElement('div');
-        avatar.className = 'w-7 h-7 bg-navy rounded-full flex items-center justify-center shrink-0';
-        avatar.innerHTML = '<span class="text-xs">🤖</span>';
-        wrapper.appendChild(avatar);
-      }
-
-      wrapper.appendChild(bubble);
-      chatMessages.appendChild(wrapper);
+      chatMessages.appendChild(bubble);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
     function addTypingIndicator() {
       const wrapper = document.createElement('div');
       wrapper.id = 'typingIndicator';
-      wrapper.className = 'flex gap-2';
-      wrapper.innerHTML = `
-        <div class="w-7 h-7 bg-navy rounded-full flex items-center justify-center shrink-0"><span class="text-xs">🤖</span></div>
-        <div class="bg-white border border-gray-100 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
-          <div class="flex gap-1 items-center h-4">
-            <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:0ms"></span>
-            <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:150ms"></span>
-            <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:300ms"></span>
-          </div>
-        </div>`;
+      wrapper.className = 'chat-typing';
+      wrapper.innerHTML = '<span></span><span></span><span></span>';
       chatMessages.appendChild(wrapper);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -660,13 +1077,14 @@
       }
     });
 
+    // ===== SPRING SPECIAL SPOT COUNT =====
     fetch('/api/config')
       .then(r => r.json())
       .then(c => {
-        const el = document.querySelector('[data-spot-count]');
-        if (el && typeof c.spotCount === 'number') {
-          el.textContent = `${c.spotCount} spots open at Spring Special pricing`;
-        }
+        if (typeof c.spotCount !== 'number') return;
+        document.querySelectorAll('[data-spot-count-template]').forEach(el => {
+          el.innerHTML = el.dataset.spotCountTemplate.replace('{N}', c.spotCount);
+        });
       })
       .catch(() => {});
   </script>
