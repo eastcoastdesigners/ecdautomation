@@ -3,8 +3,22 @@ const express = require('express');
 const path = require('path');
 const { DatabaseSync } = require('node:sqlite');
 const { Resend } = require('resend');
+const twilio = require('twilio');
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+const twilioClient = (
+  process.env.TWILIO_ACCOUNT_SID &&
+  process.env.TWILIO_AUTH_TOKEN &&
+  process.env.TWILIO_PHONE_NUMBER
+) ? twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN) : null;
+
+function normalizePhone(input) {
+  const digits = String(input || '').replace(/\D/g, '');
+  if (digits.length === 10) return '+1' + digits;
+  if (digits.length === 11 && digits.startsWith('1')) return '+' + digits;
+  return null;
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,9 +35,24 @@ db.exec(`
     message TEXT NOT NULL,
     source TEXT DEFAULT 'website',
     status TEXT DEFAULT 'new',
+    email_status TEXT DEFAULT 'pending',
+    sms_status TEXT DEFAULT 'pending',
+    sms_message_sid TEXT,
+    sms_error TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )
 `);
+
+for (const stmt of [
+  `ALTER TABLE leads ADD COLUMN email_status TEXT DEFAULT 'pending'`,
+  `ALTER TABLE leads ADD COLUMN sms_status TEXT DEFAULT 'pending'`,
+  `ALTER TABLE leads ADD COLUMN sms_message_sid TEXT`,
+  `ALTER TABLE leads ADD COLUMN sms_error TEXT`,
+]) {
+  try { db.exec(stmt); } catch (err) {
+    if (!/duplicate column name/i.test(err.message)) throw err;
+  }
+}
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -66,12 +95,18 @@ app.post('/api/leads', (req, res) => {
     const stmt = db.prepare(
       'INSERT INTO leads (name, email, phone, message, source) VALUES (?, ?, ?, ?, ?)'
     );
-    stmt.run(name.trim(), email.trim(), phone.trim(), message.trim(), source || 'website');
+    const insertResult = stmt.run(name.trim(), email.trim(), phone.trim(), message.trim(), source || 'website');
+    const leadId = Number(insertResult.lastInsertRowid);
+    const firstName = name.trim().split(' ')[0];
 
+    function safeUpdate(sql, params) {
+      try { db.prepare(sql).run(...params); }
+      catch (e) { console.error('Lead status update failed:', e); }
+    }
+
+    // Owner notification — fire and forget, not tracked in DB
     if (resend) {
       const notifyEmail = process.env.NOTIFY_EMAIL || 'eastcoastdesigners@gmail.com';
-
-      // Notify owner
       resend.emails.send({
         from: 'ECD Automation <hello@ecdautomation.com>',
         to: notifyEmail,
@@ -84,15 +119,21 @@ app.post('/api/leads', (req, res) => {
           <p><strong>Message:</strong><br>${message.trim()}</p>
           <p><a href="https://ecdautomation.com/admin.html">View in CRM →</a></p>
         `
-      }).catch(err => console.error('Owner notify error:', err));
+      }).then(({ error }) => {
+        if (error) console.error('Owner notify error:', error);
+      });
+    }
 
-      // Follow-up to lead
+    // Lead follow-up email — tracked via email_status
+    if (!resend) {
+      safeUpdate(`UPDATE leads SET email_status = 'skipped' WHERE id = ?`, [leadId]);
+    } else {
       resend.emails.send({
         from: 'Cristina at East Coast Designers <hello@ecdautomation.com>',
         to: email.trim(),
-        subject: `Got your info, ${name.trim().split(' ')[0]} — here's what's next`,
+        subject: `Got your info, ${firstName} — here's what's next`,
         html: `
-          <p>Hey ${name.trim().split(' ')[0]},</p>
+          <p>Hey ${firstName},</p>
           <p>Got your message. I'll reach out within 24 hours to set up your free 30-minute consultation.</p>
           <p>In the meantime, if you want to skip the wait — grab a time directly on my calendar:</p>
           <p><a href="https://cal.com/east-coast-designers/30-min-ai-automation-consultation">Book your 30-minute call →</a></p>
@@ -105,7 +146,43 @@ app.post('/api/leads', (req, res) => {
           <p>No sales pitch. No pressure. Just answers.</p>
           <p>— Cristina<br>East Coast Designers | AI Automation<br>ecdautomation.com</p>
         `
-      }).catch(err => console.error('Lead follow-up error:', err));
+      }).then(({ error }) => {
+        if (error) {
+          console.error(`Lead follow-up error (lead ${leadId}):`, error);
+          safeUpdate(`UPDATE leads SET email_status = 'failed' WHERE id = ?`, [leadId]);
+        } else {
+          safeUpdate(`UPDATE leads SET email_status = 'sent' WHERE id = ?`, [leadId]);
+        }
+      });
+    }
+
+    // SMS — tracked via sms_status / sms_message_sid / sms_error
+    const normalizedPhone = normalizePhone(phone);
+    if (!twilioClient) {
+      safeUpdate(`UPDATE leads SET sms_status = 'skipped' WHERE id = ?`, [leadId]);
+    } else if (!normalizedPhone) {
+      console.warn(`SMS skipped — invalid phone format for lead ${leadId}`);
+      safeUpdate(
+        `UPDATE leads SET sms_status = 'skipped', sms_error = ? WHERE id = ?`,
+        ['invalid phone format', leadId]
+      );
+    } else {
+      twilioClient.messages.create({
+        body: `Hey ${firstName} — thanks for reaching out to East Coast Designers. We got your message and someone will be in touch within 24 hours. Reply STOP to opt out. — Cristina`,
+        from: process.env.TWILIO_PHONE_NUMBER,
+        to: normalizedPhone
+      }).then(msg => {
+        safeUpdate(
+          `UPDATE leads SET sms_status = 'sent', sms_message_sid = ? WHERE id = ?`,
+          [msg.sid, leadId]
+        );
+      }).catch(err => {
+        console.error(`SMS send error (lead ${leadId}):`, err);
+        safeUpdate(
+          `UPDATE leads SET sms_status = 'failed', sms_error = ? WHERE id = ?`,
+          [String(err && err.message ? err.message : err), leadId]
+        );
+      });
     }
 
     res.json({ success: true });
