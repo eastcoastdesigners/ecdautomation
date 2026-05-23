@@ -21,12 +21,12 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1243954792908688');
+    fbq('init', '818969479572281');
     fbq('track', 'PageView');
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1243954792908688&ev=PageView&noscript=1" />
+      src="https://www.facebook.com/tr?id=818969479572281&ev=PageView&noscript=1" />
   </noscript>
 
   <!-- FAQ structured data for Google -->
@@ -790,7 +790,7 @@
             <span class="replaces-callout-label">What this replaces</span>
             <p class="replaces-callout-text">Wix Premium (<strong>$49/mo</strong>) + a designer's hourly rate. Saves <strong>$600+/year</strong> in subscriptions plus thousands in change requests.</p>
           </div>
-          <a href="https://buy.stripe.com/3cI5kC41l0HJbEgc2UeEo00" target="_blank" rel="noopener noreferrer" class="btn-primary">Choose this package</a>
+          <a href="https://buy.stripe.com/3cI5kC41l0HJbEgc2UeEo00" target="_blank" rel="noopener noreferrer" class="btn-primary" data-checkout-package="Website Only" data-checkout-value="5000">Choose this package</a>
           <p class="pricing-deposit-note">$2,500 deposit today · $2,500 due on delivery</p>
         </div>
 
@@ -815,7 +815,7 @@
             <span class="replaces-callout-label">What this replaces</span>
             <p class="replaces-callout-text">Wix (<strong>$49/mo</strong>) + GoHighLevel basic (<strong>$97/mo</strong>) + Calendly (<strong>$16/mo</strong>) = <strong>$1,944/year saved</strong>. Pays for itself, then keeps paying you back forever.</p>
           </div>
-          <a href="https://buy.stripe.com/cNi9AS8hB0HJ23GgjaeEo01" target="_blank" rel="noopener noreferrer" class="btn-primary">Choose this package</a>
+          <a href="https://buy.stripe.com/cNi9AS8hB0HJ23GgjaeEo01" target="_blank" rel="noopener noreferrer" class="btn-primary" data-checkout-package="Website + CRM" data-checkout-value="7500">Choose this package</a>
           <p class="pricing-deposit-note">$3,750 deposit today · $3,750 due on delivery</p>
         </div>
 
@@ -840,7 +840,7 @@
             <span class="replaces-callout-label">What this replaces</span>
             <p class="replaces-callout-text">GoHighLevel Pro (<strong>$297/mo</strong>) + Calendly (<strong>$16/mo</strong>) + Mailchimp (<strong>$75/mo</strong>) + ChatGPT Team (<strong>$50/mo</strong>) = <strong>$5,256/year saved</strong>. Pays for itself in under 2 years.</p>
           </div>
-          <a href="https://buy.stripe.com/bJe14m0P9cqr6jWgjaeEo02" target="_blank" rel="noopener noreferrer" class="btn-primary">Choose this package</a>
+          <a href="https://buy.stripe.com/bJe14m0P9cqr6jWgjaeEo02" target="_blank" rel="noopener noreferrer" class="btn-primary" data-checkout-package="All-in-One System" data-checkout-value="10000">Choose this package</a>
           <p class="pricing-deposit-note">$5,000 deposit today · $5,000 due on delivery</p>
         </div>
       </div>
@@ -1737,6 +1737,28 @@
         });
       })
       .catch(() => {});
+
+    // ===== META PIXEL: InitiateCheckout (Stripe "Choose this package" clicks) =====
+    document.querySelectorAll('[data-checkout-package]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (typeof fbq === 'undefined') return;
+        fbq('track', 'InitiateCheckout', {
+          content_name: btn.dataset.checkoutPackage,
+          value: parseInt(btn.dataset.checkoutValue, 10),
+          currency: 'USD'
+        });
+      });
+    });
+
+    // ===== META PIXEL: Schedule (Cal.com bookingSuccessful) =====
+    if (window.Cal && Cal.ns && Cal.ns["30-min-ai-automation-consultation"]) {
+      Cal.ns["30-min-ai-automation-consultation"]("on", {
+        action: "bookingSuccessful",
+        callback: () => {
+          if (typeof fbq !== 'undefined') fbq('track', 'Schedule');
+        }
+      });
+    }
   </script>
 </body>
 </html>
