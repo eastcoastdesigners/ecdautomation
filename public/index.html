@@ -35,7 +35,7 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type":"Question","name":"What exactly do you build?","acceptedAnswer":{"@type":"Answer","text":"Custom websites and AI automation systems for small business owners. Every project includes a custom-designed website that fits your brand. Depending on your package, we also add a CRM system, AI chatbot, calendar booking, email and SMS automation, and payment processing. We don't use templates. Every site is built from scratch."}},
+      {"@type":"Question","name":"What exactly do you build?","acceptedAnswer":{"@type":"Answer","text":"We replace the tools you're already paying for. Most clients come to us spending $200–$800 a month on GoHighLevel, Wix, HoneyBook, or ClickFunnels — paying every month for software they don't own and can't customize. We rebuild that entire stack as a single custom app you own outright. Includes website, CRM, AI chatbot, calendar booking, email automation, and payments depending on your package. Every line of code is yours."}},
       {"@type":"Question","name":"What does \"you own it\" actually mean?","acceptedAnswer":{"@type":"Answer","text":"When the project is done, we hand you the complete source code, all the logins, your domain, your AI chatbot's configuration, and any API keys connected to your system. You can host it anywhere, edit it yourself, hire any other developer to update it, or move it to a different platform at any time. We can't take any of it back, even if you stopped working with us tomorrow."}},
       {"@type":"Question","name":"Do you build for any industry?","acceptedAnswer":{"@type":"Answer","text":"We work with established small business owners across most service industries — restaurants, salons, dental practices, real estate agents, contractors, professional services, retail, and others. We don't work with hobby businesses, multi-level marketing companies, adult content, gambling, cryptocurrency speculation, or anything illegal."}},
       {"@type":"Question","name":"Can you also handle our existing website?","acceptedAnswer":{"@type":"Answer","text":"Sometimes. If you have an existing site we can rebuild it on our platform. We don't take over WordPress sites or migrate from platforms like Wix or Squarespace — instead we build you a new custom site you own outright and help you transition."}},
@@ -55,7 +55,7 @@
       {"@type":"Question","name":"Do you work with clients outside the US?","acceptedAnswer":{"@type":"Answer","text":"We're US-based and work primarily with US small businesses. We can build for international clients but communication happens during US business hours (Eastern Time), and payment is processed in USD."}},
       {"@type":"Question","name":"How do I pay you?","acceptedAnswer":{"@type":"Answer","text":"Stripe processes all payments. You'll receive a secure payment link after your consultation. Major credit cards, debit cards, and ACH bank transfers are all accepted."}},
       {"@type":"Question","name":"Is my business too small to work with you?","acceptedAnswer":{"@type":"Answer","text":"If you're an established business with paying customers and revenue, you're our target client. We don't have a minimum revenue requirement, but we don't work with hobby projects or side businesses without traction. If you're not sure, book a consultation and we'll be honest about whether we're a fit."}},
-      {"@type":"Question","name":"Why should I work with you instead of a bigger agency?","acceptedAnswer":{"@type":"Answer","text":"Three reasons. One, we take on a few clients at a time on purpose — when you reach out, you talk to the person actually building your system, not an account manager. Two, we deliver in 14 days, not 3-6 months. Three, you own what we build. Most agencies use proprietary platforms that keep you locked in. We don't."}},
+      {"@type":"Question","name":"Why should I work with you instead of a bigger agency?","acceptedAnswer":{"@type":"Answer","text":"Because I'm the one building it. You'll have my cell phone number. Big agencies hand you to an account manager who pings developers in another time zone. I take on a handful of clients at a time, on purpose. When something breaks at 9 PM, you text me — not a ticket queue. Plus: 14 days to launch (not 3–6 months), you own the code, and no per-seat fees ever."}},
       {"@type":"Question","name":"What if I'm not ready to commit yet?","acceptedAnswer":{"@type":"Answer","text":"Then we're not the right fit yet. Our Spring Special is for business owners who can deposit and start within the next month. If you're still researching or want to come back in 3-6 months, that's fine — but prices may have gone up by then. Reach out when you're ready."}},
       {"@type":"Question","name":"How do I get started?","acceptedAnswer":{"@type":"Answer","text":"Book a 30-minute consultation using the calendar on this page. No payment required to book — we'll talk through what you need and confirm if we're a fit. If we are, we'll send you a payment link and start your project."}}
     ]
@@ -317,9 +317,113 @@
 
     /* ===== CAL.COM EMBED ===== */
     .cal-embed { width: 100%; height: 700px; overflow: scroll; margin-top: clamp(40px, 6vw, 64px); }
+
+    /* ===== URGENCY BANNER (sticky top) ===== */
+    .urgency-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 110; background: linear-gradient(90deg, #C2410C 0%, #DC2626 100%); color: #FFF8F1; padding: 10px 24px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: -0.005em; text-align: center; line-height: 1.4; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .urgency-banner-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .urgency-banner-count { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; background: rgba(0,0,0,0.2); padding: 4px 10px; border-radius: 3px; white-space: nowrap; }
+    .urgency-banner-deadline { opacity: 0.95; }
+    .urgency-banner-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #FFF8F1; animation: pulse-dot 1.6s ease-in-out infinite; margin-right: 6px; vertical-align: middle; }
+    @keyframes pulse-dot { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+    body { padding-top: 44px; }
+    .site-nav { top: 44px; }
+    @media (max-width: 640px) { .urgency-banner { font-size: 12px; padding: 8px 16px; } .urgency-banner-inner { gap: 8px; } .urgency-banner-count { font-size: 11px; padding: 3px 8px; } body { padding-top: 64px; } .site-nav { top: 64px; } }
+
+    /* ===== HERO TRUST LINE ===== */
+    .hero-trust { margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.05em; color: var(--color-text-muted); text-transform: uppercase; }
+    .hero-trust span { display: inline-block; margin: 0 4px; opacity: 0.5; }
+
+    /* ===== STRIKE PRICE ===== */
+    .pricing-price-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+    .pricing-price-row .pricing-price { margin-bottom: 0; }
+    .pricing-strike { font-family: 'Instrument Serif', serif; font-size: 28px; line-height: 1; color: var(--color-text-muted); text-decoration: line-through; text-decoration-thickness: 1.5px; opacity: 0.55; letter-spacing: -0.01em; }
+    .pricing-save-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent); background: var(--color-accent-soft); padding: 4px 8px; border-radius: 3px; margin-bottom: 12px; }
+
+    /* ===== REPLACES CALLOUT (pricing) ===== */
+    .replaces-callout { border: 1px solid var(--color-border); border-radius: 4px; padding: 14px 16px; margin: 0 0 24px 0; background: rgba(254, 215, 170, 0.18); }
+    .replaces-callout-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 6px; }
+    .replaces-callout-text { font-size: 13px; line-height: 1.55; color: var(--color-text); margin: 0; }
+    .replaces-callout-text strong { font-weight: 600; color: var(--color-text); }
+
+    /* ===== FIT CHECK SECTION ===== */
+    .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: clamp(40px, 6vw, 64px); }
+    @media (max-width: 768px) { .fit-grid { grid-template-columns: 1fr; gap: 28px; } }
+    .fit-col { border: 1px solid var(--color-border); border-radius: 4px; padding: 32px; background: var(--color-bg); }
+    .fit-col-yes { border-color: rgba(194, 65, 12, 0.35); background: rgba(254, 215, 170, 0.12); }
+    .fit-col-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--color-border); }
+    .fit-col-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; font-weight: 600; }
+    .fit-col-yes .fit-col-icon { background: var(--color-accent); color: var(--color-bg); }
+    .fit-col-no .fit-col-icon { background: #E5DFD3; color: var(--color-text-muted); }
+    .fit-col-title { font-family: 'Instrument Serif', serif; font-size: 22px; line-height: 1.2; margin: 0; color: var(--color-text); }
+    .fit-list { list-style: none; padding: 0; margin: 0; }
+    .fit-list li { padding: 12px 0 12px 22px; font-size: 15px; line-height: 1.55; color: var(--color-text); border-bottom: 1px solid var(--color-border); position: relative; }
+    .fit-list li:last-child { border-bottom: none; }
+    .fit-col-yes .fit-list li::before { content: "✓"; position: absolute; left: 0; top: 12px; color: var(--color-accent); font-weight: 600; font-size: 14px; }
+    .fit-col-no .fit-list li::before { content: "×"; position: absolute; left: 0; top: 10px; color: var(--color-text-muted); font-size: 18px; line-height: 1; }
+
+    /* ===== WHAT'S IN THE BOX ===== */
+    .box-tagline { max-width: 720px; font-size: 17px; line-height: 1.55; color: var(--color-text-muted); margin: 12px 0 0 0; }
+    .box-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-top: clamp(40px, 6vw, 64px); }
+    @media (max-width: 900px) { .box-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .box-grid { grid-template-columns: 1fr; } }
+    .box-item { padding: 28px 20px; border: 1px solid var(--color-border); border-radius: 4px; text-align: center; background: var(--color-bg); transition: border-color var(--t-base) var(--ease), transform var(--t-base) var(--ease); }
+    .box-item:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+    .box-icon { width: 40px; height: 40px; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: var(--color-accent); }
+    .box-icon svg { width: 32px; height: 32px; stroke-width: 1.5; }
+    .box-item-title { font-family: 'Instrument Serif', serif; font-size: 19px; line-height: 1.25; color: var(--color-text); margin: 0 0 6px 0; letter-spacing: -0.01em; }
+    .box-item-desc { font-size: 13px; line-height: 1.5; color: var(--color-text-muted); margin: 0; }
+
+    /* ===== COMPARISON TABLE ===== */
+    .compare-wrap { margin-top: clamp(40px, 6vw, 64px); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; }
+    .compare-scroll { overflow-x: auto; }
+    .compare-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    .compare-table th, .compare-table td { padding: 18px 20px; text-align: left; font-size: 14px; line-height: 1.4; border-bottom: 1px solid var(--color-border); vertical-align: middle; }
+    .compare-table thead th { background: rgba(0,0,0,0.02); font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); border-bottom: 1px solid var(--color-border); }
+    .compare-table thead th.col-ecd { background: var(--color-accent); color: var(--color-bg); }
+    .compare-table tbody tr:last-child td { border-bottom: none; }
+    .compare-table .row-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-text-muted); white-space: nowrap; }
+    .compare-table .col-ecd-cell { background: rgba(254, 215, 170, 0.22); font-weight: 500; color: var(--color-text); }
+    .compare-table .yes-mark { color: #16A34A; font-weight: 700; font-size: 16px; }
+    .compare-table .no-mark { color: #DC2626; font-weight: 700; font-size: 16px; }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: clamp(40px, 6vw, 64px); }
+    @media (max-width: 900px) { .testimonial-grid { grid-template-columns: 1fr; } }
+    .testimonial-card { background: #FFFFFF; border: 1px solid var(--color-border); border-radius: 4px; padding: 32px 28px; box-shadow: 0 2px 12px rgba(26, 24, 20, 0.04); display: flex; flex-direction: column; }
+    .testimonial-quote { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 20px; line-height: 1.4; color: var(--color-text); margin: 0 0 24px 0; flex: 1; }
+    .testimonial-result { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-accent); padding: 10px 14px; background: var(--color-accent-soft); border-radius: 3px; margin: 0 0 20px 0; display: inline-block; align-self: flex-start; }
+    .testimonial-footer { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid var(--color-border); }
+    .testimonial-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--color-accent-soft), #E5DFD3); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--color-accent); font-family: 'Instrument Serif', serif; font-size: 18px; }
+    .testimonial-name { font-size: 14px; font-weight: 500; color: var(--color-text); margin: 0; line-height: 1.3; }
+    .testimonial-business { font-size: 13px; color: var(--color-text-muted); margin: 2px 0 0 0; line-height: 1.3; }
+
+    /* ===== ABOUT CALLOUT ===== */
+    .about-callout { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 4vw, 44px); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-text-light); border-left: 3px solid var(--color-accent); padding: 8px 0 8px 28px; margin: 0 0 40px 0; max-width: 760px; }
+    .about-callout .italic { color: var(--color-accent-soft); }
+
+    /* ===== MOBILE STICKY CTA ===== */
+    .mobile-cta-bar { display: none; }
+    @media (max-width: 768px) {
+      .mobile-cta-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 95; background: var(--color-bg); border-top: 1px solid var(--color-border); padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0)); gap: 8px; box-shadow: 0 -4px 16px rgba(0,0,0,0.06); }
+      .mobile-cta-bar a { flex: 1; text-align: center; padding: 13px 10px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 500; border-radius: 4px; text-decoration: none; transition: background var(--t-base) var(--ease); }
+      .mobile-cta-bar a.btn-primary { background: var(--color-text); color: var(--color-bg); border: none; padding: 13px 10px; }
+      .mobile-cta-bar a.btn-secondary-mobile { background: transparent; color: var(--color-text); border: 1px solid var(--color-border); padding: 12px 10px; }
+      body { padding-bottom: 68px; }
+      #chatWidget { bottom: 88px; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- ============================================================ -->
+  <!-- STICKY URGENCY BANNER -->
+  <!-- ============================================================ -->
+  <div class="urgency-banner" id="urgencyBanner" role="alert" aria-live="polite">
+    <div class="urgency-banner-inner">
+      <span><span class="urgency-banner-dot" aria-hidden="true"></span><span class="urgency-banner-count" data-spot-count-template="{N} of 10 Spring Special spots remaining">4 of 10 Spring Special spots remaining</span></span>
+      <span class="urgency-banner-deadline">Ends June 30, 2026 — or when the 10th spot is claimed</span>
+    </div>
+  </div>
 
   <!-- ============================================================ -->
   <!-- HEADER / NAV -->
@@ -363,15 +467,16 @@
     <div class="container">
       <span class="label-mono fade-in">01 — East Coast Designers</span>
       <h1 class="h-display hero-headline fade-in">
-        Custom websites and AI automation. <span class="italic">Built once. Owned forever.</span>
+        Cancel your $500/month software stack. <span class="italic">Replace it with custom apps you own forever</span> — built in 14 days.
       </h1>
       <p class="body-large hero-sub fade-in">
-        Custom websites and AI automation, built by a small studio that actually cares about your results. You get the code. You own the system. We stay in your corner.
+        We rebuild what you're already paying for — your website, CRM, chatbot, and booking system — as one custom app you fully own. Usually pays for itself in 6–12 months of cancelled subscriptions.
       </p>
       <div class="hero-ctas fade-in">
         <a href="#calendar" class="btn-primary">Book a 30-minute call</a>
         <a href="#pricing" class="btn-secondary">See pricing</a>
       </div>
+      <p class="hero-trust fade-in">Building websites since 2010<span>·</span>Based in the US<span>·</span>You talk directly to the builder</p>
       <div class="hero-below-fold fade-in">
         <hr class="hairline" />
         <span class="label-mono label-mono--accent" data-spot-count-template="SPRING SPECIAL — {N} SPOTS OPEN — SCROLL FOR PRICING">SPRING SPECIAL — 10 SPOTS OPEN — SCROLL FOR PRICING</span>
@@ -454,12 +559,205 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- INVESTMENT / PRICING (04) -->
+  <!-- FIT CHECK (04) -->
   <!-- ============================================================ -->
-  <section class="section" id="pricing">
+  <section class="section" id="fit">
     <span class="section-num-bg" aria-hidden="true">04</span>
     <div class="container">
-      <span class="label-mono fade-in">04 — Investment</span>
+      <span class="label-mono fade-in">04 — Fit Check</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        Is this the right fit <span class="italic">for you?</span>
+      </h2>
+      <p class="body-large body-muted w-60 fade-in" style="margin: 0;">
+        We'd rather tell you up front than waste your time on a call.
+      </p>
+
+      <div class="fit-grid">
+        <div class="fit-col fit-col-yes fade-in">
+          <div class="fit-col-header">
+            <span class="fit-col-icon" aria-hidden="true">✓</span>
+            <h3 class="fit-col-title">This is for you if:</h3>
+          </div>
+          <ul class="fit-list">
+            <li>You're paying $200+/month for software you don't own</li>
+            <li>You've outgrown templates but can't afford a $30K agency build</li>
+            <li>You want one partner, not five vendors</li>
+            <li>You're ready to start within the next 30 days</li>
+          </ul>
+        </div>
+        <div class="fit-col fit-col-no fade-in">
+          <div class="fit-col-header">
+            <span class="fit-col-icon" aria-hidden="true">×</span>
+            <h3 class="fit-col-title">This isn't for you if:</h3>
+          </div>
+          <ul class="fit-list">
+            <li>You need a simple 5-page brochure site (we're overkill)</li>
+            <li>You're still researching and not ready to commit</li>
+            <li>You expect us to drive your traffic for you (we build, you market)</li>
+            <li>You want monthly retainers instead of ownership</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- WHAT'S IN THE BOX (05) -->
+  <!-- ============================================================ -->
+  <section class="section" id="box">
+    <span class="section-num-bg" aria-hidden="true">05</span>
+    <div class="container">
+      <span class="label-mono fade-in">05 — What's In The Box</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        What's in the box.
+      </h2>
+      <p class="box-tagline fade-in">Everything we touch becomes yours. We have no leverage over you after launch.</p>
+
+      <div class="box-grid">
+        <div class="box-item fade-in">
+          <div class="box-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+            </svg>
+          </div>
+          <h3 class="box-item-title">Your domain</h3>
+          <p class="box-item-desc">Registered in your name from day one.</p>
+        </div>
+
+        <div class="box-item fade-in">
+          <div class="box-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+            </svg>
+          </div>
+          <h3 class="box-item-title">Full source code</h3>
+          <p class="box-item-desc">Handed over on GitHub at launch.</p>
+        </div>
+
+        <div class="box-item fade-in">
+          <div class="box-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </div>
+          <h3 class="box-item-title">All login credentials</h3>
+          <p class="box-item-desc">Every account, every service, your name on it.</p>
+        </div>
+
+        <div class="box-item fade-in">
+          <div class="box-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="15" r="4"/>
+              <path d="M12 12l8-8M16 8l4 4M14 6l4 4"/>
+            </svg>
+          </div>
+          <h3 class="box-item-title">All API keys</h3>
+          <p class="box-item-desc">Every integration in your control.</p>
+        </div>
+
+        <div class="box-item fade-in">
+          <div class="box-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12h18M3 12l9-9 9 9M5 12v8a1 1 0 001 1h12a1 1 0 001-1v-8"/>
+            </svg>
+          </div>
+          <h3 class="box-item-title">Hosting account</h3>
+          <p class="box-item-desc">In your name. $5/mo, paid directly to provider.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- COMPARISON TABLE (06) -->
+  <!-- ============================================================ -->
+  <section class="section" id="compare">
+    <span class="section-num-bg" aria-hidden="true">06</span>
+    <div class="container">
+      <span class="label-mono fade-in">06 — Compare</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        How we stack up <span class="italic">against the alternatives.</span>
+      </h2>
+      <p class="body-large body-muted w-60 fade-in" style="margin: 0;">
+        The honest version. No marketing spin.
+      </p>
+
+      <div class="compare-wrap fade-in">
+        <div class="compare-scroll">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>DIY Platforms<br><span style="text-transform:none;letter-spacing:0;font-size:10px;opacity:0.7;">Wix, GoHighLevel</span></th>
+                <th>Traditional Agencies<br><span style="text-transform:none;letter-spacing:0;font-size:10px;opacity:0.7;">$30K+</span></th>
+                <th class="col-ecd">East Coast Designers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="row-label">Upfront cost</td>
+                <td>$0</td>
+                <td>$30,000+</td>
+                <td class="col-ecd-cell">$5,000–$10,000</td>
+              </tr>
+              <tr>
+                <td class="row-label">Monthly cost</td>
+                <td>$200–$500</td>
+                <td>$500+ retainer</td>
+                <td class="col-ecd-cell">$5 hosting</td>
+              </tr>
+              <tr>
+                <td class="row-label">Time to launch</td>
+                <td>Hours</td>
+                <td>3–6 months</td>
+                <td class="col-ecd-cell">14 days</td>
+              </tr>
+              <tr>
+                <td class="row-label">You own the code</td>
+                <td><span class="no-mark" aria-label="No">✕</span></td>
+                <td>Sometimes</td>
+                <td class="col-ecd-cell"><span class="yes-mark" aria-label="Yes">✓</span></td>
+              </tr>
+              <tr>
+                <td class="row-label">Per-seat or per-record fees</td>
+                <td><span class="yes-mark" style="color:#DC2626" aria-label="Yes">✓</span></td>
+                <td><span class="yes-mark" style="color:#DC2626" aria-label="Yes">✓</span></td>
+                <td class="col-ecd-cell"><span class="no-mark" style="color:#16A34A" aria-label="No">✕</span></td>
+              </tr>
+              <tr>
+                <td class="row-label">Can migrate freely</td>
+                <td><span class="no-mark" aria-label="No">✕</span></td>
+                <td><span class="no-mark" aria-label="No">✕</span></td>
+                <td class="col-ecd-cell"><span class="yes-mark" aria-label="Yes">✓</span></td>
+              </tr>
+              <tr>
+                <td class="row-label">Direct access to builder</td>
+                <td><span class="no-mark" aria-label="No">✕</span></td>
+                <td><span class="no-mark" aria-label="No">✕</span></td>
+                <td class="col-ecd-cell"><span class="yes-mark" aria-label="Yes">✓</span></td>
+              </tr>
+              <tr>
+                <td class="row-label">AI chatbot included</td>
+                <td><span class="no-mark" aria-label="No">✕</span></td>
+                <td>$$$ extra</td>
+                <td class="col-ecd-cell"><span class="yes-mark" aria-label="Yes">✓</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- INVESTMENT / PRICING (07) -->
+  <!-- ============================================================ -->
+  <section class="section" id="pricing">
+    <span class="section-num-bg" aria-hidden="true">07</span>
+    <div class="container">
+      <span class="label-mono fade-in">07 — Investment</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: clamp(40px, 6vw, 64px);">
         Three packages. One promise. <span class="italic">You own everything.</span>
       </h2>
@@ -475,8 +773,12 @@
         <!-- Tier 1 -->
         <div class="pricing-card fade-in">
           <h3 class="h-card pricing-name">Website Only</h3>
-          <div class="pricing-price">$5,000</div>
-          <p class="pricing-terms">One-time. Half down. Half on delivery. Standard rate $7,500.</p>
+          <div class="pricing-price-row">
+            <div class="pricing-price">$5,000</div>
+            <span class="pricing-strike" aria-label="Standard rate">$7,500</span>
+          </div>
+          <span class="pricing-save-badge">Save $2,500 · Spring Special</span>
+          <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
           <hr class="pricing-divider" />
           <ul class="pricing-list">
             <li>Custom landing page</li>
@@ -484,6 +786,10 @@
             <li>Hosted on a secure server</li>
             <li>You own the code</li>
           </ul>
+          <div class="replaces-callout">
+            <span class="replaces-callout-label">What this replaces</span>
+            <p class="replaces-callout-text">Wix Premium (<strong>$49/mo</strong>) + a designer's hourly rate. Saves <strong>$600+/year</strong> in subscriptions plus thousands in change requests.</p>
+          </div>
           <a href="https://buy.stripe.com/3cI5kC41l0HJbEgc2UeEo00" target="_blank" rel="noopener noreferrer" class="btn-primary">Choose this package</a>
           <p class="pricing-deposit-note">$2,500 deposit today · $2,500 due on delivery</p>
         </div>
@@ -492,8 +798,12 @@
         <div class="pricing-card pricing-card--featured fade-in">
           <span class="pricing-card-tag">Most chosen</span>
           <h3 class="h-card pricing-name">Website + CRM</h3>
-          <div class="pricing-price">$7,500</div>
-          <p class="pricing-terms">One-time. Half down. Half on delivery. Standard rate $10,000.</p>
+          <div class="pricing-price-row">
+            <div class="pricing-price">$7,500</div>
+            <span class="pricing-strike" aria-label="Standard rate">$10,000</span>
+          </div>
+          <span class="pricing-save-badge">Save $2,500 · Spring Special</span>
+          <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
           <hr class="pricing-divider" />
           <ul class="pricing-list">
             <li>Everything in Website Only</li>
@@ -501,6 +811,10 @@
             <li>Job status CRM</li>
             <li>Admin login panel</li>
           </ul>
+          <div class="replaces-callout">
+            <span class="replaces-callout-label">What this replaces</span>
+            <p class="replaces-callout-text">Wix (<strong>$49/mo</strong>) + GoHighLevel basic (<strong>$97/mo</strong>) + Calendly (<strong>$16/mo</strong>) = <strong>$1,944/year saved</strong>. Pays for itself, then keeps paying you back forever.</p>
+          </div>
           <a href="https://buy.stripe.com/cNi9AS8hB0HJ23GgjaeEo01" target="_blank" rel="noopener noreferrer" class="btn-primary">Choose this package</a>
           <p class="pricing-deposit-note">$3,750 deposit today · $3,750 due on delivery</p>
         </div>
@@ -508,8 +822,12 @@
         <!-- Tier 3 -->
         <div class="pricing-card fade-in">
           <h3 class="h-card pricing-name">All-in-One System</h3>
-          <div class="pricing-price">$10,000</div>
-          <p class="pricing-terms">One-time. Half down. Half on delivery. Standard rate $15,000.</p>
+          <div class="pricing-price-row">
+            <div class="pricing-price">$10,000</div>
+            <span class="pricing-strike" aria-label="Standard rate">$15,000</span>
+          </div>
+          <span class="pricing-save-badge">Save $5,000 · Spring Special</span>
+          <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
           <hr class="pricing-divider" />
           <ul class="pricing-list">
             <li>Everything in Website + CRM</li>
@@ -518,6 +836,10 @@
             <li>Email automation</li>
             <li>Stripe payments</li>
           </ul>
+          <div class="replaces-callout">
+            <span class="replaces-callout-label">What this replaces</span>
+            <p class="replaces-callout-text">GoHighLevel Pro (<strong>$297/mo</strong>) + Calendly (<strong>$16/mo</strong>) + Mailchimp (<strong>$75/mo</strong>) + ChatGPT Team (<strong>$50/mo</strong>) = <strong>$5,256/year saved</strong>. Pays for itself in under 2 years.</p>
+          </div>
           <a href="https://buy.stripe.com/bJe14m0P9cqr6jWgjaeEo02" target="_blank" rel="noopener noreferrer" class="btn-primary">Choose this package</a>
           <p class="pricing-deposit-note">$5,000 deposit today · $5,000 due on delivery</p>
         </div>
@@ -592,12 +914,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- PROCESS (05) -->
+  <!-- PROCESS (08) -->
   <!-- ============================================================ -->
   <section class="section" id="process">
-    <span class="section-num-bg" aria-hidden="true">05</span>
+    <span class="section-num-bg" aria-hidden="true">08</span>
     <div class="container">
-      <span class="label-mono fade-in">05 — Process</span>
+      <span class="label-mono fade-in">08 — Process</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px;">
         From conversation to launch in 14 days.
       </h2>
@@ -628,12 +950,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- HOW WE WORK (06) -->
+  <!-- HOW WE WORK (09) -->
   <!-- ============================================================ -->
   <section class="section" id="how-we-work">
-    <span class="section-num-bg" aria-hidden="true">06</span>
+    <span class="section-num-bg" aria-hidden="true">09</span>
     <div class="container">
-      <span class="label-mono fade-in">06 — How We Work</span>
+      <span class="label-mono fade-in">09 — How We Work</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: clamp(24px, 4vw, 40px);">
         Small studio. Big care. Real results.
       </h2>
@@ -668,12 +990,73 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- COMMON QUESTIONS / FAQ (07) -->
+  <!-- TESTIMONIAL SECTION — HIDDEN UNTIL REAL TESTIMONIALS COLLECTED.
+       To re-enable: remove the opening and closing comment tags, then
+       replace placeholder content with real client quotes.
+       When re-enabling, also renumber this section back into the sequence
+       (will become "10 — Client Results") and bump FAQ → 11, Refunds → 12,
+       About → 13, Contact → 14, Calendar → 15.
+  ============================================================ -->
+  <!--
+  <section class="section" id="results">
+    <span class="section-num-bg" aria-hidden="true">10</span>
+    <div class="container">
+      <span class="label-mono fade-in">10 — Client Results</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        What it looks like <span class="italic">after we hand it over.</span>
+      </h2>
+      <p class="body-large body-muted w-60 fade-in" style="margin: 0;">
+        Real numbers from real owners who cancelled their stacks.
+      </p>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card fade-in" data-placeholder="REPLACE WITH REAL TESTIMONIAL">
+          <p class="testimonial-quote">&ldquo;Lorem ipsum testimonial about cancelled subscriptions and ownership. Felt good to stop renting our own business tools every month.&rdquo;</p>
+          <span class="testimonial-result">Saved $340/month after switching</span>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar" aria-hidden="true">A</div>
+            <div>
+              <p class="testimonial-name">[Client Name]</p>
+              <p class="testimonial-business">[Business Type]</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in" data-placeholder="REPLACE WITH REAL TESTIMONIAL">
+          <p class="testimonial-quote">&ldquo;Lorem ipsum testimonial about owning the code and the chatbot. We migrated off three platforms and never looked back.&rdquo;</p>
+          <span class="testimonial-result">Saved $612/month after switching</span>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar" aria-hidden="true">B</div>
+            <div>
+              <p class="testimonial-name">[Client Name]</p>
+              <p class="testimonial-business">[Business Type]</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in" data-placeholder="REPLACE WITH REAL TESTIMONIAL">
+          <p class="testimonial-quote">&ldquo;Lorem ipsum testimonial about getting their cell number and getting answers in hours, not weeks. Best decision we made this year.&rdquo;</p>
+          <span class="testimonial-result">Saved $450/month after switching</span>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar" aria-hidden="true">C</div>
+            <div>
+              <p class="testimonial-name">[Client Name]</p>
+              <p class="testimonial-business">[Business Type]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- ============================================================ -->
+  <!-- COMMON QUESTIONS / FAQ (10) -->
   <!-- ============================================================ -->
   <section class="section" id="faq">
-    <span class="section-num-bg" aria-hidden="true">07</span>
+    <span class="section-num-bg" aria-hidden="true">10</span>
     <div class="container">
-      <span class="label-mono fade-in">07 — Common Questions</span>
+      <span class="label-mono fade-in">10 — Common Questions</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         Questions we hear a lot.
       </h2>
@@ -692,7 +1075,7 @@
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer-wrap"><div class="faq-answer" id="faq-1"><div class="faq-answer-inner">
-              Custom websites and AI automation systems for small business owners. Every project includes a custom-designed website that fits your brand. Depending on your package, we also add a CRM system, AI chatbot, calendar booking, email and SMS automation, and payment processing. We don't use templates. Every site is built from scratch.
+              We replace the tools you're already paying for. Most clients come to us spending $200–$800 a month on GoHighLevel, Wix, HoneyBook, or ClickFunnels — paying every month for software they don't own and can't customize. We rebuild that entire stack as a single custom app you own outright. Includes website, CRM, AI chatbot, calendar booking, email automation, and payments depending on your package. Every line of code is yours.
             </div></div></div>
           </div>
 
@@ -912,7 +1295,7 @@
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer-wrap"><div class="faq-answer" id="faq-21"><div class="faq-answer-inner">
-              Three reasons. One, we take on a few clients at a time on purpose — when you reach out, you talk to the person actually building your system, not an account manager. Two, we deliver in 14 days, not 3-6 months. Three, you own what we build. Most agencies use proprietary platforms that keep you locked in. We don't.
+              Because I'm the one building it. You'll have my cell phone number. Big agencies hand you to an account manager who pings developers in another time zone. I take on a handful of clients at a time, on purpose. When something breaks at 9 PM, you text me — not a ticket queue. Plus: 14 days to launch (not 3–6 months), you own the code, and no per-seat fees ever.
             </div></div></div>
           </div>
 
@@ -953,12 +1336,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- REFUNDS AND CANCELLATIONS (08) -->
+  <!-- REFUNDS AND CANCELLATIONS (11) -->
   <!-- ============================================================ -->
   <section class="section" id="refunds">
-    <span class="section-num-bg" aria-hidden="true">08</span>
+    <span class="section-num-bg" aria-hidden="true">11</span>
     <div class="container">
-      <span class="label-mono fade-in">08 — Refunds and Cancellations</span>
+      <span class="label-mono fade-in">11 — Refunds and Cancellations</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         Our refund policy.
       </h2>
@@ -988,15 +1371,18 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- ABOUT (09) -->
+  <!-- ABOUT (12) -->
   <!-- ============================================================ -->
   <section class="section section--dark" id="about">
-    <span class="section-num-bg" aria-hidden="true">09</span>
+    <span class="section-num-bg" aria-hidden="true">12</span>
     <div class="container">
-      <span class="label-mono fade-in">09 — About</span>
+      <span class="label-mono fade-in">12 — About</span>
       <h2 class="h-section fade-in" style="margin-top: 24px; margin-bottom: clamp(32px, 5vw, 48px);">
         East Coast Designers.
       </h2>
+      <p class="about-callout fade-in">
+        Building websites <span class="italic">since 2010.</span> Building AI automation <span class="italic">since 2024.</span> Same studio. Same person you'll be talking to.
+      </p>
       <div style="max-width: 60%;" class="fade-in">
         <p class="body-large" style="margin-bottom: 24px;">
           We're a small studio, on purpose. We take on a handful of clients at a time — not hundreds. Because every business we build for, we actually care about. We answer when you call. We follow up after launch. We get results.
@@ -1005,7 +1391,7 @@
           East Coast Designers was built on a simple idea: small business owners deserve to own their tools. Not rent them. Not lease them. Own them.
         </p>
         <p class="body-large" style="margin-bottom: 24px;">
-          We started in trades. We've built websites since 2010. Now we build AI automation systems that small businesses fully own — websites, CRMs, chatbots, lead capture, all of it.
+          We started in trades. Now we build AI automation systems that small businesses fully own — websites, CRMs, chatbots, lead capture, all of it.
         </p>
         <p class="body-large" style="margin-bottom: 24px;">
           We work with contractors, restaurants, salons, real estate agents, dentists, anyone who needs a website that works and an AI that doesn't lock them in. You own what we build. That's the whole deal.
@@ -1018,12 +1404,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- LEAD FORM (10) -->
+  <!-- LEAD FORM (13) -->
   <!-- ============================================================ -->
   <section class="section" id="contact">
-    <span class="section-num-bg" aria-hidden="true">10</span>
+    <span class="section-num-bg" aria-hidden="true">13</span>
     <div class="container">
-      <span class="label-mono fade-in">10 — Start the Conversation</span>
+      <span class="label-mono fade-in">13 — Start the Conversation</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         Tell us what you need.
       </h2>
@@ -1063,12 +1449,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- CALENDAR (11) -->
+  <!-- CALENDAR (14) -->
   <!-- ============================================================ -->
   <section class="section" id="calendar">
-    <span class="section-num-bg" aria-hidden="true">11</span>
+    <span class="section-num-bg" aria-hidden="true">14</span>
     <div class="container">
-      <span class="label-mono fade-in">11 — Book a Call</span>
+      <span class="label-mono fade-in">14 — Book a Call</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         Or skip the form.
       </h2>
@@ -1116,6 +1502,14 @@
       <div class="footer-copy">© 2026 East Coast Designers LLC. All rights reserved.</div>
     </div>
   </footer>
+
+  <!-- ============================================================ -->
+  <!-- STICKY MOBILE CTA BAR (mobile only) -->
+  <!-- ============================================================ -->
+  <div class="mobile-cta-bar" aria-label="Quick actions">
+    <a href="#calendar" class="btn-primary">Book a Call</a>
+    <a href="#pricing" class="btn-secondary-mobile">See Pricing</a>
+  </div>
 
   <!-- ============================================================ -->
   <!-- AI CHATBOT WIDGET -->
