@@ -48,11 +48,24 @@ for (const stmt of [
   `ALTER TABLE leads ADD COLUMN sms_status TEXT DEFAULT 'pending'`,
   `ALTER TABLE leads ADD COLUMN sms_message_sid TEXT`,
   `ALTER TABLE leads ADD COLUMN sms_error TEXT`,
+  `ALTER TABLE leads ADD COLUMN notes TEXT DEFAULT ''`,
+  `ALTER TABLE leads ADD COLUMN vibe TEXT`,
+  `ALTER TABLE leads ADD COLUMN last_contacted DATETIME`,
 ]) {
   try { db.exec(stmt); } catch (err) {
     if (!/duplicate column name/i.test(err.message)) throw err;
   }
 }
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS activity_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    lead_id INTEGER NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    note_text TEXT NOT NULL
+  )
+`);
+db.exec(`CREATE INDEX IF NOT EXISTS idx_activity_lead ON activity_log(lead_id, timestamp DESC)`);
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -213,6 +226,76 @@ app.patch('/api/leads/:id', requireAdmin, (req, res) => {
   } catch (err) {
     console.error('Status update error:', err);
     res.status(500).json({ success: false, error: 'Failed to update status.' });
+  }
+});
+
+// PATCH /api/leads/:id/notes — admin: update notes, bump last_contacted, log to activity_log
+app.patch('/api/leads/:id/notes', requireAdmin, (req, res) => {
+  const { notes } = req.body;
+  if (typeof notes !== 'string') {
+    return res.status(400).json({ success: false, error: 'notes must be a string.' });
+  }
+
+  try {
+    const lead = db.prepare('SELECT notes FROM leads WHERE id = ?').get(req.params.id);
+    if (!lead) return res.status(404).json({ success: false, error: 'Lead not found.' });
+
+    const newNotes = notes.trim();
+    const oldNotes = (lead.notes || '').trim();
+
+    db.prepare(
+      `UPDATE leads SET notes = ?, last_contacted = CURRENT_TIMESTAMP WHERE id = ?`
+    ).run(newNotes, req.params.id);
+
+    // Only log to history if non-empty AND text actually changed
+    if (newNotes && newNotes !== oldNotes) {
+      db.prepare(
+        `INSERT INTO activity_log (lead_id, note_text) VALUES (?, ?)`
+      ).run(req.params.id, newNotes);
+    }
+
+    const updated = db.prepare(
+      'SELECT notes, last_contacted FROM leads WHERE id = ?'
+    ).get(req.params.id);
+    res.json({ success: true, notes: updated.notes, last_contacted: updated.last_contacted });
+  } catch (err) {
+    console.error('Notes update error:', err);
+    res.status(500).json({ success: false, error: 'Failed to update notes.' });
+  }
+});
+
+// PATCH /api/leads/:id/vibe — admin: update vibe tag
+app.patch('/api/leads/:id/vibe', requireAdmin, (req, res) => {
+  let { vibe } = req.body;
+  if (vibe === '' || vibe === undefined) vibe = null;
+  const validVibes = [null, 'hot', 'warm', 'cold'];
+  if (!validVibes.includes(vibe)) {
+    return res.status(400).json({ success: false, error: 'Invalid vibe.' });
+  }
+
+  try {
+    const result = db.prepare('UPDATE leads SET vibe = ? WHERE id = ?').run(vibe, req.params.id);
+    if (result.changes === 0) {
+      return res.status(404).json({ success: false, error: 'Lead not found.' });
+    }
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Vibe update error:', err);
+    res.status(500).json({ success: false, error: 'Failed to update vibe.' });
+  }
+});
+
+// GET /api/leads/:id/activity — admin: fetch activity log (newest first, capped at 50)
+app.get('/api/leads/:id/activity', requireAdmin, (req, res) => {
+  try {
+    const entries = db.prepare(
+      `SELECT id, timestamp, note_text FROM activity_log
+       WHERE lead_id = ? ORDER BY timestamp DESC LIMIT 50`
+    ).all(req.params.id);
+    res.json(entries);
+  } catch (err) {
+    console.error('Activity log fetch error:', err);
+    res.status(500).json({ error: 'Failed to fetch activity log.' });
   }
 });
 
