@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>East Coast Designers | AI Automation for Small Business Owners</title>
-  <meta name="description" content="A small studio building custom websites and AI automation systems for small business owners. You own the code. We stay in your corner. Spring Special pricing — 10 spots open." />
+  <meta name="description" content="A small studio building custom websites and AI automation for contractors, med spas, salons, real estate, and local service businesses. You own the code. 14-day build. Spring Special — 10 spots open." />
 
   <!-- Google Fonts: Instrument Serif, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -330,6 +330,8 @@
     @media (max-width: 640px) { .urgency-banner { font-size: 12px; padding: 8px 16px; } .urgency-banner-inner { gap: 8px; } .urgency-banner-count { font-size: 11px; padding: 3px 8px; } body { padding-top: 64px; } .site-nav { top: 64px; } }
 
     /* ===== HERO TRUST LINE ===== */
+    .hero-audience { margin-top: 24px; max-width: 60%; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.45; color: var(--color-text-muted); }
+    @media (max-width: 768px) { .hero-audience { max-width: 100%; } }
     .hero-trust { margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.05em; color: var(--color-text-muted); text-transform: uppercase; }
     .hero-trust span { display: inline-block; margin: 0 4px; opacity: 0.5; }
 
@@ -366,6 +368,9 @@
     .box-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-top: clamp(40px, 6vw, 64px); }
     @media (max-width: 900px) { .box-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 480px) { .box-grid { grid-template-columns: 1fr; } }
+    .box-grid--includes { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 900px) { .box-grid--includes { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .box-grid--includes { grid-template-columns: 1fr; } }
     .box-item { padding: 28px 20px; border: 1px solid var(--color-border); border-radius: 4px; text-align: center; background: var(--color-bg); transition: border-color var(--t-base) var(--ease), transform var(--t-base) var(--ease); }
     .box-item:hover { border-color: var(--color-accent); transform: translateY(-2px); }
     .box-icon { width: 40px; height: 40px; margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; color: var(--color-accent); }
@@ -476,6 +481,7 @@
         <a href="#calendar" class="btn-primary">Book a 30-minute call</a>
         <a href="#pricing" class="btn-secondary">See pricing</a>
       </div>
+      <p class="hero-audience fade-in">Built for <span class="italic">contractors, med spas, salons, real estate pros, and local service businesses.</span></p>
       <p class="hero-trust fade-in">Building websites since 2010<span>·</span>Based in the US<span>·</span>You talk directly to the builder</p>
       <div class="hero-below-fold fade-in">
         <hr class="hairline" />
@@ -596,6 +602,56 @@
             <li>You expect us to drive your traffic for you (we build, you market)</li>
             <li>You want monthly retainers instead of ownership</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- INCLUDED IN EVERY BUILD (services strip) -->
+  <!-- ============================================================ -->
+  <section class="section" id="included">
+    <div class="container">
+      <span class="label-mono fade-in">Included in every build</span>
+      <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        Everything your business needs, <span class="italic">in one custom app.</span>
+      </h2>
+      <p class="body-large body-muted w-60 fade-in" style="margin: 0;">
+        One system. One login. No five-vendor sprawl.
+      </p>
+
+      <div class="box-grid box-grid--includes fade-in">
+        <div class="box-item fade-in">
+          <h3 class="box-item-title">Custom website</h3>
+          <p class="box-item-desc">Fast, mobile-first, built around your offer.</p>
+        </div>
+        <div class="box-item fade-in">
+          <h3 class="box-item-title">CRM + lead inbox</h3>
+          <p class="box-item-desc">Every lead in one place — tagged, tracked, owned.</p>
+        </div>
+        <div class="box-item fade-in">
+          <h3 class="box-item-title">AI chatbot</h3>
+          <p class="box-item-desc">Answers questions and books calls 24/7.</p>
+        </div>
+        <div class="box-item fade-in">
+          <h3 class="box-item-title">Smart contact forms</h3>
+          <p class="box-item-desc">Capture name, email, phone, intent — straight to your CRM.</p>
+        </div>
+        <div class="box-item fade-in">
+          <h3 class="box-item-title">Email + SMS follow-up</h3>
+          <p class="box-item-desc">Auto-reply the second a lead hits submit.</p>
+        </div>
+        <div class="box-item fade-in">
+          <h3 class="box-item-title">Review automation</h3>
+          <p class="box-item-desc">Turn happy clients into 5-star reviews on autopilot.</p>
+        </div>
+        <div class="box-item fade-in">
+          <h3 class="box-item-title">Online booking</h3>
+          <p class="box-item-desc">Calendar synced to your inbox and your phone.</p>
+        </div>
+        <div class="box-item fade-in">
+          <h3 class="box-item-title">Optional monthly Care</h3>
+          <p class="box-item-desc">Hosting, edits, and updates after launch — your call.</p>
         </div>
       </div>
     </div>
