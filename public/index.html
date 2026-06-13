@@ -399,6 +399,12 @@
     .about-callout { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 4vw, 44px); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-text-light); border-left: 3px solid var(--color-accent); padding: 8px 0 8px 28px; margin: 0 0 40px 0; max-width: 760px; }
     .about-callout .italic { color: var(--color-accent-soft); }
 
+    /* ===== ADD-ONS GRID ===== */
+    .addon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: clamp(40px, 6vw, 56px); }
+    @media (max-width: 1100px) { .addon-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .addon-grid { grid-template-columns: 1fr; gap: 28px; } }
+    .addon-card-desc { flex: 1; color: var(--color-text-muted); font-size: 15px; margin: 0 0 28px 0; }
+
     /* ===== MOBILE STICKY CTA ===== */
     .mobile-cta-bar { display: none; }
     @media (max-width: 768px) {
@@ -424,7 +430,7 @@
         <span class="nav-logo-kicker">AI Automation</span>
       </a>
       <nav class="nav-links">
-        <a href="#services" class="nav-link">Services</a>
+        <a href="/services" class="nav-link">Services</a>
         <a href="#pricing" class="nav-link">Pricing</a>
         <a href="#faq" class="nav-link">FAQ</a>
         <a href="#about" class="nav-link">About</a>
@@ -932,12 +938,78 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- PROCESS (08) -->
+  <!-- ADD-ONS (08) -->
   <!-- ============================================================ -->
-  <section class="section" id="process">
+  <section class="section" id="addons">
     <span class="section-num-bg" aria-hidden="true">08</span>
     <div class="container">
-      <span class="label-mono fade-in">08 — Process</span>
+      <span class="label-mono label-mono--accent fade-in">Add-ons — Popular individual services</span>
+      <h2 class="h-section fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        Add what you need. <span class="italic">Skip what you don't.</span>
+      </h2>
+      <p class="body-large body-muted fade-in" style="max-width: 720px; margin: 0 0 clamp(40px, 6vw, 64px) 0;">
+        Most clients pick a package. Some prefer to add a single piece to what they already have. Here are the most-requested add-ons. <a href="/services" class="btn-secondary">View all services →</a>
+      </p>
+
+      <div class="addon-grid">
+        <!-- Card 1: Copy rewrite -->
+        <div class="pricing-card care-card fade-in">
+          <h3 class="h-card pricing-name">Professional copy rewrite</h3>
+          <p class="pricing-tagline">Add-on or standalone</p>
+          <div class="pricing-price">$1,500</div>
+          <p class="pricing-terms">One-time. Scoped on your consultation call.</p>
+          <hr class="pricing-divider" />
+          <p class="addon-card-desc">Full-site copy professionally rewritten for clarity, voice, and conversion.</p>
+          <a href="#calendar" class="btn-primary">Book a 30-min consultation →</a>
+        </div>
+
+        <!-- Card 2: AI chatbot add-on -->
+        <div class="pricing-card care-card fade-in">
+          <h3 class="h-card pricing-name">AI chatbot add-on</h3>
+          <p class="pricing-tagline">Add-on to existing package</p>
+          <div class="pricing-price">$4,000</div>
+          <p class="pricing-terms">One-time. Scoped on your consultation call.</p>
+          <hr class="pricing-divider" />
+          <p class="addon-card-desc">Multilingual AI chatbot (English, Spanish, Portuguese) added to your Website Only or Website + CRM package.</p>
+          <a href="#calendar" class="btn-primary">Book a 30-min consultation →</a>
+        </div>
+
+        <!-- Card 3: AI chatbot for existing site -->
+        <div class="pricing-card care-card fade-in">
+          <h3 class="h-card pricing-name">AI chatbot for existing site</h3>
+          <p class="pricing-tagline">Standalone service</p>
+          <div class="pricing-price">$4,000</div>
+          <p class="pricing-terms">One-time. Scoped on your consultation call.</p>
+          <hr class="pricing-divider" />
+          <p class="addon-card-desc">Already have a website you love? We'll build and integrate a multilingual AI chatbot into it.</p>
+          <a href="#calendar" class="btn-primary">Book a 30-min consultation →</a>
+        </div>
+
+        <!-- Card 4: Standalone CRM -->
+        <div class="pricing-card care-card fade-in">
+          <h3 class="h-card pricing-name">Standalone CRM system</h3>
+          <p class="pricing-tagline">Standalone service</p>
+          <div class="pricing-price">$4,000</div>
+          <p class="pricing-terms">One-time. Scoped on your consultation call.</p>
+          <hr class="pricing-divider" />
+          <p class="addon-card-desc">Custom CRM with lead tracking, admin panel, and email notifications. Drop into any existing site.</p>
+          <a href="#calendar" class="btn-primary">Book a 30-min consultation →</a>
+        </div>
+      </div>
+
+      <p class="fade-in" style="text-align: center; margin-top: clamp(32px, 5vw, 48px); font-size: 16px; color: var(--color-text-muted);">
+        Looking for something else? <a href="/services" class="btn-secondary">View all 30+ services →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PROCESS (09) -->
+  <!-- ============================================================ -->
+  <section class="section" id="process">
+    <span class="section-num-bg" aria-hidden="true">09</span>
+    <div class="container">
+      <span class="label-mono fade-in">09 — Process</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px;">
         From conversation to launch in 14 days.
       </h2>
@@ -968,12 +1040,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- HOW WE WORK (09) -->
+  <!-- HOW WE WORK (10) -->
   <!-- ============================================================ -->
   <section class="section" id="how-we-work">
-    <span class="section-num-bg" aria-hidden="true">09</span>
+    <span class="section-num-bg" aria-hidden="true">10</span>
     <div class="container">
-      <span class="label-mono fade-in">09 — How We Work</span>
+      <span class="label-mono fade-in">10 — How We Work</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: clamp(24px, 4vw, 40px);">
         Small studio. Big care. Real results.
       </h2>
@@ -1012,14 +1084,14 @@
        To re-enable: remove the opening and closing comment tags, then
        replace placeholder content with real client quotes.
        When re-enabling, also renumber this section back into the sequence
-       (will become "10 — Client Results") and bump FAQ → 11, Refunds → 12,
-       About → 13, Contact → 14, Calendar → 15.
+       (will become "12 — Client Results") and bump FAQ → 13, Refunds → 14,
+       About → 15, Contact → 16, Calendar → 17.
   ============================================================ -->
   <!--
   <section class="section" id="results">
-    <span class="section-num-bg" aria-hidden="true">10</span>
+    <span class="section-num-bg" aria-hidden="true">12</span>
     <div class="container">
-      <span class="label-mono fade-in">10 — Client Results</span>
+      <span class="label-mono fade-in">12 — Client Results</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         What it looks like <span class="italic">after we hand it over.</span>
       </h2>
@@ -1069,12 +1141,12 @@
   -->
 
   <!-- ============================================================ -->
-  <!-- COMMON QUESTIONS / FAQ (10) -->
+  <!-- COMMON QUESTIONS / FAQ (11) -->
   <!-- ============================================================ -->
   <section class="section" id="faq">
-    <span class="section-num-bg" aria-hidden="true">10</span>
+    <span class="section-num-bg" aria-hidden="true">11</span>
     <div class="container">
-      <span class="label-mono fade-in">10 — Common Questions</span>
+      <span class="label-mono fade-in">11 — Common Questions</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         Questions we hear a lot.
       </h2>
@@ -1354,12 +1426,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- REFUNDS AND CANCELLATIONS (11) -->
+  <!-- REFUNDS AND CANCELLATIONS (12) -->
   <!-- ============================================================ -->
   <section class="section" id="refunds">
-    <span class="section-num-bg" aria-hidden="true">11</span>
+    <span class="section-num-bg" aria-hidden="true">12</span>
     <div class="container">
-      <span class="label-mono fade-in">11 — Refunds and Cancellations</span>
+      <span class="label-mono fade-in">12 — Refunds and Cancellations</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         Our refund policy.
       </h2>
@@ -1389,12 +1461,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- ABOUT (12) -->
+  <!-- ABOUT (13) -->
   <!-- ============================================================ -->
   <section class="section section--dark" id="about">
-    <span class="section-num-bg" aria-hidden="true">12</span>
+    <span class="section-num-bg" aria-hidden="true">13</span>
     <div class="container">
-      <span class="label-mono fade-in">12 — About</span>
+      <span class="label-mono fade-in">13 — About</span>
       <h2 class="h-section fade-in" style="margin-top: 24px; margin-bottom: clamp(32px, 5vw, 48px);">
         East Coast Designers.
       </h2>
@@ -1422,12 +1494,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- LEAD FORM (13) -->
+  <!-- LEAD FORM (14) -->
   <!-- ============================================================ -->
   <section class="section" id="contact">
-    <span class="section-num-bg" aria-hidden="true">13</span>
+    <span class="section-num-bg" aria-hidden="true">14</span>
     <div class="container">
-      <span class="label-mono fade-in">13 — Start the Conversation</span>
+      <span class="label-mono fade-in">14 — Start the Conversation</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         Tell us what you need.
       </h2>
@@ -1467,12 +1539,12 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- CALENDAR (14) -->
+  <!-- CALENDAR (15) -->
   <!-- ============================================================ -->
   <section class="section" id="calendar">
-    <span class="section-num-bg" aria-hidden="true">14</span>
+    <span class="section-num-bg" aria-hidden="true">15</span>
     <div class="container">
-      <span class="label-mono fade-in">14 — Book a Call</span>
+      <span class="label-mono fade-in">15 — Book a Call</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: 16px;">
         Or skip the form.
       </h2>
@@ -1512,6 +1584,7 @@
           <span class="nav-logo-kicker" style="color: var(--color-text-muted-dark);">AI Automation</span>
         </div>
         <div class="footer-links">
+          <a href="/services" class="footer-link">Services</a>
           <a href="/privacy.html" class="footer-link">Privacy</a>
           <a href="/terms.html" class="footer-link">Terms</a>
           <a href="#contact" class="footer-link">Contact</a>

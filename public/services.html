@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services &amp; À La Carte Pricing | East Coast Designers</title>
+  <meta name="description" content="Transparent pricing for individual services — AI chatbots, CRM systems, landing pages, brand identity, and more. Built by a small studio. You own the code." />
+
+  <!-- Google Fonts: Instrument Serif, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN — layout utilities -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '818969479572281');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=818969479572281&ev=PageView&noscript=1" />
+  </noscript>
+
+  <!-- Organization schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "East Coast Designers",
+    "url": "https://ecdautomation.com",
+    "description": "Small studio building custom websites and AI automation for small businesses. You own the code.",
+    "email": "hello@ecdautomation.com",
+    "telephone": "+12032289197",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "US"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --color-bg: #FAF8F3;
+      --color-bg-dark: #1A1814;
+      --color-text: #1A1814;
+      --color-text-light: #FAF8F3;
+      --color-text-muted: #6B6660;
+      --color-text-muted-dark: #9A938A;
+      --color-accent: #C2410C;
+      --color-accent-soft: #FED7AA;
+      --color-border: #E5DFD3;
+      --color-border-dark: #2A2620;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --t-base: 300ms;
+      --t-slow: 700ms;
+
+      --container: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.6;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    .serif { font-family: 'Instrument Serif', Georgia, serif; }
+    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    .italic { font-style: italic; }
+
+    .h-display { font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(44px, 8vw, 96px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin: 0; }
+    .h-section { font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(32px, 5vw, 56px); line-height: 1.1; letter-spacing: -0.015em; font-weight: 400; margin: 0; }
+    .h-card { font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(24px, 3vw, 32px); line-height: 1.15; letter-spacing: -0.01em; font-weight: 400; margin: 0; }
+    .body-large { font-size: clamp(18px, 1.4vw, 22px); line-height: 1.5; color: var(--color-text); }
+    .body { font-size: 17px; line-height: 1.6; color: var(--color-text); }
+    .body-muted { color: var(--color-text-muted); }
+
+    .label-mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); }
+    .label-mono--accent { color: var(--color-accent); }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: var(--container); margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+    @media (max-width: 640px) { .container { padding-left: 20px; padding-right: 20px; } }
+    .section { padding-top: clamp(64px, 10vw, 128px); padding-bottom: clamp(64px, 10vw, 128px); position: relative; overflow: hidden; }
+    .section--dark { background: var(--color-bg-dark); color: var(--color-text-light); }
+    .section--dark .body-muted { color: var(--color-text-muted-dark); }
+    .section--dark .label-mono { color: var(--color-text-muted-dark); }
+    .section--alt { background: rgba(0,0,0,0.02); }
+
+    .hairline { border: 0; height: 1px; background: var(--color-border); margin: 0; }
+
+    .w-60 { max-width: 60%; }
+    .w-55 { max-width: 55%; }
+    @media (max-width: 768px) { .w-60, .w-55 { max-width: 100%; } }
+
+    .section-num-bg { position: absolute; top: clamp(40px, 8vw, 96px); right: -20px; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(180px, 28vw, 320px); line-height: 0.85; color: var(--color-text); opacity: 0.05; pointer-events: none; user-select: none; z-index: 0; }
+    .section > .container { position: relative; z-index: 1; }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary { display: inline-block; background: var(--color-text); color: var(--color-bg); padding: 16px 28px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 15px; letter-spacing: -0.01em; border-radius: 4px; border: none; cursor: pointer; text-decoration: none; transition: background var(--t-base) var(--ease), color var(--t-base) var(--ease); }
+    .btn-primary:hover { background: var(--color-accent); color: var(--color-bg); }
+    .section--dark .btn-primary { background: var(--color-bg); color: var(--color-text); }
+    .section--dark .btn-primary:hover { background: var(--color-accent-soft); color: var(--color-text); }
+    .btn-secondary { display: inline-block; color: var(--color-accent); text-decoration: none; border-bottom: 1px solid var(--color-accent); padding-bottom: 2px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 15px; transition: border-color var(--t-base) var(--ease), color var(--t-base) var(--ease); }
+    .btn-secondary:hover { color: var(--color-text); border-bottom-color: var(--color-text); }
+
+    /* ===== NAV ===== */
+    .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0; background: transparent; border-bottom: 1px solid transparent; transition: background var(--t-base) var(--ease), border-color var(--t-base) var(--ease), backdrop-filter var(--t-base) var(--ease); }
+    .site-nav--scrolled { background: rgba(250, 248, 243, 0.95); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom-color: var(--color-border); }
+    .nav-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .nav-logo { line-height: 1; text-decoration: none; }
+    .nav-logo-name { font-family: 'Instrument Serif', serif; font-size: 18px; color: var(--color-text); display: block; }
+    .nav-logo-kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-top: 4px; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-link { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; color: var(--color-text); text-decoration: none; transition: color var(--t-base) var(--ease); }
+    .nav-link:hover { color: var(--color-accent); }
+    .nav-link--active { color: var(--color-accent); }
+    .nav-cta { margin-left: 8px; padding: 10px 20px; font-size: 14px; }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+    .nav-mobile-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--color-text); }
+    @media (max-width: 768px) { .nav-mobile-btn { display: block; } }
+    .nav-mobile-menu { display: none; padding: 16px 0 8px 0; }
+    .nav-mobile-menu.open { display: block; }
+    .nav-mobile-menu .nav-link { display: block; padding: 12px 0; border-bottom: 1px solid var(--color-border); }
+    .nav-mobile-menu .nav-cta { display: inline-block; margin-top: 12px; }
+
+    /* ===== FOOTER ===== */
+    .site-footer { background: var(--color-bg-dark); color: var(--color-text-light); padding: 48px 0 32px 0; }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-link { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted-dark); text-decoration: none; transition: color var(--t-base) var(--ease); }
+    .footer-link:hover { color: var(--color-accent-soft); }
+    .footer-copy { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--color-border-dark); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--color-text-muted-dark); letter-spacing: 0.05em; }
+
+    /* ===== CHAT WIDGET ===== */
+    #chatWidget { position: fixed; bottom: 24px; right: 24px; z-index: 90; display: flex; flex-direction: column; align-items: flex-end; }
+    #chatToggleBtn { width: 56px; height: 56px; border-radius: 50%; background: var(--color-bg-dark); color: var(--color-bg); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.18); transition: transform var(--t-base) var(--ease), background var(--t-base) var(--ease); position: relative; }
+    #chatToggleBtn::after { content: ""; position: absolute; top: 14px; right: 14px; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); }
+    #chatToggleBtn:hover { transform: translateY(-2px); }
+    #chatToggleBtn svg { width: 22px; height: 22px; stroke-width: 1.5; }
+    #chatWindow { margin-bottom: 12px; width: min(400px, calc(100vw - 48px)); height: min(600px, calc(100vh - 120px)); background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 4px; box-shadow: 0 12px 48px rgba(0,0,0,0.18); display: flex; flex-direction: column; overflow: hidden; }
+    .chat-header { padding: 24px 24px 16px 24px; border-bottom: 1px solid var(--color-border); }
+    .chat-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .chat-greeting { font-family: 'Instrument Serif', serif; font-size: 28px; line-height: 1.1; color: var(--color-text); margin: 0; }
+    .chat-sub { font-size: 13px; color: var(--color-text-muted); margin-top: 8px; }
+    .chat-close { background: none; border: none; cursor: pointer; color: var(--color-text-muted); padding: 4px; }
+    .chat-close:hover { color: var(--color-text); }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+    .chat-bubble { padding: 12px 16px; font-size: 14px; line-height: 1.5; max-width: 80%; border-radius: 4px; }
+    .chat-bubble--bot { background: var(--color-bg); border: 1px solid var(--color-border); color: var(--color-text); align-self: flex-start; }
+    .chat-bubble--user { background: var(--color-text); color: var(--color-bg); align-self: flex-end; }
+    .chat-typing { display: flex; gap: 6px; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: 4px; align-self: flex-start; }
+    .chat-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-muted); animation: chat-pulse 1.4s infinite; }
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes chat-pulse { 0%, 60%, 100% { opacity: 0.2; } 30% { opacity: 1; } }
+    .chat-input-row { padding: 16px 20px; border-top: 1px solid var(--color-border); display: flex; gap: 12px; align-items: center; }
+    #chatInput { flex: 1; background: transparent; border: 0; border-bottom: 1px solid var(--color-border); padding: 8px 0; font-family: 'Inter', sans-serif; font-size: 14px; outline: none; border-radius: 0; color: var(--color-text); }
+    #chatInput:focus { border-bottom-color: var(--color-accent); }
+    #chatSendBtn { width: 36px; height: 36px; border-radius: 50%; background: var(--color-accent); color: var(--color-bg); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--t-base) var(--ease); }
+    #chatSendBtn:hover { background: var(--color-text); }
+    #chatSendBtn svg { width: 16px; height: 16px; stroke-width: 1.75; }
+    .hidden { display: none !important; }
+
+    /* ===== FADE IN ON SCROLL ===== */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); }
+    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .fade-in { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+    /* ===== MOBILE STICKY CTA ===== */
+    .mobile-cta-bar { display: none; }
+    @media (max-width: 768px) {
+      .mobile-cta-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 95; background: var(--color-bg); border-top: 1px solid var(--color-border); padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0)); gap: 8px; box-shadow: 0 -4px 16px rgba(0,0,0,0.06); }
+      .mobile-cta-bar a { flex: 1; text-align: center; padding: 13px 10px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 500; border-radius: 4px; text-decoration: none; transition: background var(--t-base) var(--ease); }
+      .mobile-cta-bar a.btn-primary { background: var(--color-text); color: var(--color-bg); border: none; padding: 13px 10px; }
+      .mobile-cta-bar a.btn-secondary-mobile { background: transparent; color: var(--color-text); border: 1px solid var(--color-border); padding: 12px 10px; }
+      body { padding-bottom: 68px; }
+      #chatWidget { bottom: 88px; }
+    }
+
+    /* ===== SERVICES PAGE — HERO ===== */
+    .services-hero { padding-top: clamp(140px, 20vw, 200px); padding-bottom: clamp(80px, 12vw, 128px); }
+
+    /* ===== SERVICES PAGE — SERVICE LIST ===== */
+    .service-list { list-style: none; padding: 0; margin: clamp(32px, 5vw, 48px) 0 0 0; }
+    .service-item { padding: clamp(24px, 3.5vw, 36px) 0; border-bottom: 1px solid var(--color-border); display: grid; grid-template-areas: "num name price" "num desc desc"; grid-template-columns: 72px 1fr auto; gap: 0 24px; align-items: start; }
+    .service-item:last-child { border-bottom: none; }
+    .service-num { grid-area: num; font-family: 'Instrument Serif', serif; font-size: 52px; line-height: 1; color: var(--color-text); opacity: 0.1; padding-top: 4px; }
+    .service-name { grid-area: name; font-family: 'Instrument Serif', serif; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; color: var(--color-text); letter-spacing: -0.01em; margin: 0; padding-top: 6px; }
+    .service-price { grid-area: price; font-family: 'Instrument Serif', serif; font-size: clamp(20px, 2.2vw, 26px); line-height: 1; color: var(--color-text); letter-spacing: -0.01em; white-space: nowrap; padding-top: 6px; }
+    .service-desc { grid-area: desc; font-size: 15px; line-height: 1.6; color: var(--color-text-muted); margin: 8px 0 0 0; }
+    @media (max-width: 640px) {
+      .service-item { grid-template-areas: "num name" "desc desc" "price price"; grid-template-columns: 52px 1fr; gap: 0 16px; }
+      .service-num { font-size: 38px; }
+      .service-price { padding-top: 10px; font-size: 20px; }
+    }
+
+    /* ===== SERVICES PAGE — CATEGORY HEADERS ===== */
+    .category-intro { max-width: 760px; font-size: 17px; line-height: 1.55; color: var(--color-text-muted); margin: 12px 0 0 0; }
+
+    /* ===== SERVICES PAGE — CLOSING CTA ===== */
+    .closing-cta { text-align: center; }
+    .closing-cta .h-section { margin-bottom: 20px; }
+    .closing-cta .body-large { max-width: 640px; margin: 0 auto 40px auto; color: var(--color-text-muted); }
+    .closing-cta-note { margin-top: 20px; font-size: 15px; color: var(--color-text-muted); }
+    .closing-cta-note a { color: var(--color-accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+    .closing-cta-note a:hover { color: var(--color-text); }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================ -->
+  <!-- HEADER / NAV -->
+  <!-- ============================================================ -->
+  <header class="site-nav" id="siteNav">
+    <div class="container nav-row">
+      <a href="/" class="nav-logo">
+        <span class="nav-logo-name">East Coast Designers</span>
+        <span class="nav-logo-kicker">AI Automation</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/services" class="nav-link nav-link--active">Services</a>
+        <a href="/#pricing" class="nav-link">Pricing</a>
+        <a href="/#faq" class="nav-link">FAQ</a>
+        <a href="/#about" class="nav-link">About</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+        <a href="/#calendar" class="btn-primary nav-cta">Book a call</a>
+      </nav>
+      <button id="mobileMenuBtn" class="nav-mobile-btn" aria-label="Toggle menu">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="nav-mobile-menu container">
+      <a href="/services" class="nav-link nav-link--active">Services</a>
+      <a href="/#pricing" class="nav-link">Pricing</a>
+      <a href="/#faq" class="nav-link">FAQ</a>
+      <a href="/#about" class="nav-link">About</a>
+      <a href="/#contact" class="nav-link">Contact</a>
+      <a href="/#calendar" class="btn-primary nav-cta">Book a call</a>
+    </div>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- ============================================================ -->
+  <!-- HERO -->
+  <!-- ============================================================ -->
+  <section class="services-hero section">
+    <div class="container">
+      <span class="label-mono label-mono--accent fade-in">/services</span>
+      <h1 class="h-display fade-in" style="margin-top: 24px; margin-bottom: 32px; max-width: 65%;">
+        Pricing for individual services.
+      </h1>
+      <p class="body-large body-muted w-55 fade-in" style="margin-bottom: 24px;">
+        Not everyone needs a full package. If you already have a website you love — or just need one specific piece — these are the individual services we offer, with transparent pricing.
+      </p>
+      <p class="body body-muted w-55 fade-in" style="margin-bottom: 40px;">
+        Every service starts with a 30-minute consultation so we understand exactly what you need. After our call, we'll send you a custom payment link for the work.
+      </p>
+      <a href="/#calendar" class="btn-primary fade-in">Book a 30-min consultation →</a>
+    </div>
+  </section>
+
+  <hr class="hairline" />
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY 01 — ADD-ONS -->
+  <!-- ============================================================ -->
+  <section class="section" id="addons">
+    <span class="section-num-bg" aria-hidden="true">01</span>
+    <div class="container">
+      <span class="label-mono label-mono--accent fade-in">01 — Add-ons</span>
+      <h2 class="h-section fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        Stack onto a package.
+      </h2>
+      <p class="category-intro fade-in">
+        These are most often added to one of our three main packages ($5K / $7.5K / $10K) during the consultation. Each one extends what your custom build includes.
+      </p>
+
+      <ul class="service-list">
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">01</span>
+          <h3 class="service-name">Extra pages (up to 5 additional)</h3>
+          <span class="service-price">$750</span>
+          <p class="service-desc">Custom-designed pages beyond the standard build. Same level of polish, same code ownership.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">02</span>
+          <h3 class="service-name">Blog / news section</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Article publishing system + 3 starter articles. SEO-friendly, easy to update.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">03</span>
+          <h3 class="service-name">Logo design (3 variations)</h3>
+          <span class="service-price">$750</span>
+          <p class="service-desc">Original logo design with three variations. Final files in all major formats.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">04</span>
+          <h3 class="service-name">Full brand identity</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Logo + color system + typography + style guide. Everything your business needs to look consistent.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">05</span>
+          <h3 class="service-name">Custom illustrations (3 branded pieces)</h3>
+          <span class="service-price">$750</span>
+          <p class="service-desc">Original branded illustrations to replace stock imagery. Hand-drawn feel.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">06</span>
+          <h3 class="service-name">AI brand photography (10 images)</h3>
+          <span class="service-price">$1,000</span>
+          <p class="service-desc">Custom AI-generated brand imagery. Consistent style, unique to you.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">07</span>
+          <h3 class="service-name">Professional copy rewrite (full site)</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Full-site copy rewritten by a professional copywriter. Clear, on-brand, conversion-focused.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">08</span>
+          <h3 class="service-name">SEO foundation setup</h3>
+          <span class="service-price">$750</span>
+          <p class="service-desc">Meta tags, structured data, sitemap, Google Search Console setup. The technical foundation for organic traffic.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">09</span>
+          <h3 class="service-name">Google My Business setup + first 5 posts</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Complete profile setup, photo optimization, first five posts written and scheduled.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">10</span>
+          <h3 class="service-name">Migration from existing site</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Content extracted and migrated from WordPress, Wix, Squarespace, or other platforms.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">11</span>
+          <h3 class="service-name">Additional language translation (per language)</h3>
+          <span class="service-price">$1,000</span>
+          <p class="service-desc">Add another language beyond the default EN / ES / PT. Includes chatbot training in the new language.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">12</span>
+          <h3 class="service-name">Email marketing integration</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Mailchimp, ConvertKit, or similar fully integrated. Signup forms, tag-based segmentation, first sequence drafted.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">13</span>
+          <h3 class="service-name">Advanced booking system</h3>
+          <span class="service-price">$2,500</span>
+          <p class="service-desc">Multi-staff, services, and payment-through-booking flow. Full Calendly / Cal.com integration with custom styling.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">14</span>
+          <h3 class="service-name">E-commerce mini-store (up to 10 products)</h3>
+          <span class="service-price">$4,500</span>
+          <p class="service-desc">Stripe products, checkout, basic order tracking. For owners who want to sell a few items, not run a full store.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">15</span>
+          <h3 class="service-name">AI chatbot add-on (Website Only or Website + CRM)</h3>
+          <span class="service-price">$4,000</span>
+          <p class="service-desc">The same multilingual AI chatbot that comes with the All-in-One package, added to a smaller-tier package.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">16</span>
+          <h3 class="service-name">Premium support (3 months priority access)</h3>
+          <span class="service-price">$500</span>
+          <p class="service-desc">Three months of priority email response (within 24 hours) after launch. Optional bridge to a Care Package.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">17</span>
+          <h3 class="service-name">Social media setup (3 platforms + first month)</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Setup of 3 platforms with branded profiles, plus first month of content planned and scheduled.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">18</span>
+          <h3 class="service-name">Lead magnet design (PDF guide + landing page)</h3>
+          <span class="service-price">$1,000</span>
+          <p class="service-desc">Branded PDF lead magnet (up to 8 pages) plus dedicated landing page to capture emails.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hairline" />
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY 02 — STANDALONE SERVICES -->
+  <!-- ============================================================ -->
+  <section class="section section--alt" id="standalone">
+    <span class="section-num-bg" aria-hidden="true">02</span>
+    <div class="container">
+      <span class="label-mono label-mono--accent fade-in">02 — Standalone Services</span>
+      <h2 class="h-section fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        When you only need one piece.
+      </h2>
+      <p class="category-intro fade-in">
+        Sometimes you already have a website you like — you just need one specific piece added. Or you want one component standalone. These are our most-requested standalone services.
+      </p>
+
+      <ul class="service-list">
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">01</span>
+          <h3 class="service-name">AI chatbot (added to existing site)</h3>
+          <span class="service-price">$4,000</span>
+          <p class="service-desc">Multilingual AI chatbot (EN / ES / PT) integrated into your existing website. Works on any platform — WordPress, Wix, Squarespace, custom.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">02</span>
+          <h3 class="service-name">CRM system (standalone)</h3>
+          <span class="service-price">$4,000</span>
+          <p class="service-desc">Lead tracking + admin panel + automated email notifications. Connects to your existing site or works as a standalone tool.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">03</span>
+          <h3 class="service-name">Standalone landing page</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Single-page lead capture site. Custom design, mobile-responsive, code-owned, ready in 7 days.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">04</span>
+          <h3 class="service-name">Custom form + email/SMS automation</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Lead form with automated email and SMS notifications to your phone every time someone submits. Drop into any existing site.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">05</span>
+          <h3 class="service-name">AI integration for existing site</h3>
+          <span class="service-price">$3,500</span>
+          <p class="service-desc">Add AI-powered features (chat, content generation, smart forms) to a website you already have. Custom integration, not a third-party plugin.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">06</span>
+          <h3 class="service-name">Website rebuild from existing platform</h3>
+          <span class="service-price">$4,000</span>
+          <p class="service-desc">Have a Wix, WordPress, or Squarespace site you've outgrown? We rebuild it on our platform. You own the code, you own the system.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">07</span>
+          <h3 class="service-name">Calendar + booking integration</h3>
+          <span class="service-price">$1,500</span>
+          <p class="service-desc">Cal.com integration with custom branding, automated reminders, and post-booking workflows.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">08</span>
+          <h3 class="service-name">Brand identity package (standalone)</h3>
+          <span class="service-price">$2,500</span>
+          <p class="service-desc">Logo + color system + typography + style guide. Everything your business needs to look consistent across every touchpoint.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">09</span>
+          <h3 class="service-name">Email marketing setup + first sequence</h3>
+          <span class="service-price">$1,000</span>
+          <p class="service-desc">Mailchimp or ConvertKit setup, signup forms, tag-based segmentation, and a five-email welcome sequence drafted and ready to send.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hairline" />
+
+  <!-- ============================================================ -->
+  <!-- CATEGORY 03 — HOURLY / CONSULTATION -->
+  <!-- ============================================================ -->
+  <section class="section" id="hourly">
+    <span class="section-num-bg" aria-hidden="true">03</span>
+    <div class="container">
+      <span class="label-mono label-mono--accent fade-in">03 — Hourly / Consultation</span>
+      <h2 class="h-section fade-in" style="margin-top: 24px; margin-bottom: 16px;">
+        Hourly work for past clients.
+      </h2>
+      <p class="category-intro fade-in">
+        For clients we've already worked with — or for one-off conversations to figure out if a project is a fit.
+      </p>
+
+      <ul class="service-list">
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">01</span>
+          <h3 class="service-name">Strategy consultation</h3>
+          <span class="service-price">$250 / hr</span>
+          <p class="service-desc">Sixty-minute call to think through your specific situation. Booked and paid upfront. We do not do free strategy calls — but new package buyers always get a free 30-minute scoping consultation.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">02</span>
+          <h3 class="service-name">Technical consulting</h3>
+          <span class="service-price">$350 / hr</span>
+          <p class="service-desc">Code review, architecture advice, technical due diligence. For founders or teams who need a second opinion.</p>
+        </li>
+        <li class="service-item fade-in">
+          <span class="service-num" aria-hidden="true">03</span>
+          <h3 class="service-name">Implementation hours (past clients only)</h3>
+          <span class="service-price">$200 / hr</span>
+          <p class="service-desc">Quick changes for clients we've already built for. Not covered by a Care Package? This is the rate.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hairline" />
+
+  <!-- ============================================================ -->
+  <!-- CLOSING CTA (04) -->
+  <!-- ============================================================ -->
+  <section class="section section--dark" id="talk">
+    <div class="container">
+      <div class="closing-cta fade-in">
+        <span class="label-mono label-mono--accent" style="display: block; margin-bottom: 24px;">04 — Ready to Talk?</span>
+        <h2 class="h-section" style="margin-bottom: 24px;">
+          Let's figure out <span class="italic">what you need.</span>
+        </h2>
+        <p class="body-large" style="max-width: 600px; margin: 0 auto 40px auto; color: var(--color-text-muted-dark);">
+          Every service starts with a 30-minute conversation. We'll talk through what you have, what you need, and what makes sense. No pitch. No pressure. Just a real conversation.
+        </p>
+        <a href="/#calendar" class="btn-primary">Book a 30-min consultation →</a>
+        <p class="closing-cta-note" style="color: var(--color-text-muted-dark);">
+          Prefer email first? Reach us at <a href="mailto:hello@ecdautomation.com" style="color: var(--color-accent-soft); border-color: var(--color-accent-soft);">hello@ecdautomation.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER -->
+  <!-- ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="nav-logo">
+          <span class="nav-logo-name" style="color: var(--color-text-light);">East Coast Designers</span>
+          <span class="nav-logo-kicker" style="color: var(--color-text-muted-dark);">AI Automation</span>
+        </div>
+        <div class="footer-links">
+          <a href="/services" class="footer-link">Services</a>
+          <a href="/privacy.html" class="footer-link">Privacy</a>
+          <a href="/terms.html" class="footer-link">Terms</a>
+          <a href="/#contact" class="footer-link">Contact</a>
+        </div>
+      </div>
+      <div class="footer-copy">&copy; 2026 East Coast Designers LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- STICKY MOBILE CTA BAR -->
+  <!-- ============================================================ -->
+  <div class="mobile-cta-bar" aria-label="Quick actions">
+    <a href="/#calendar" class="btn-primary">Book a Call</a>
+    <a href="/#pricing" class="btn-secondary-mobile">See Pricing</a>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- AI CHATBOT WIDGET -->
+  <!-- ============================================================ -->
+  <div id="chatWidget">
+    <div id="chatWindow" class="hidden">
+      <div class="chat-header">
+        <div class="chat-header-top">
+          <div>
+            <h3 class="chat-greeting">How can we help?</h3>
+            <p class="chat-sub">We speak English, Spanish, and Portuguese.</p>
+          </div>
+          <button id="closeChatBtn" class="chat-close" aria-label="Close chat">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" d="M6 6l12 12M6 18L18 6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="chatMessages" class="chat-messages">
+        <div class="chat-bubble chat-bubble--bot">
+          Hi. Ask me anything about our websites, AI automation, or pricing. I speak English, Spanish, and Portuguese.
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <input id="chatInput" type="text" placeholder="Type a message…" />
+        <button id="chatSendBtn" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button id="chatToggleBtn" aria-label="Open chat">
+      <svg id="chatIconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+      </svg>
+      <svg id="chatIconClose" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 6l12 12M6 18L18 6"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- JAVASCRIPT -->
+  <!-- ============================================================ -->
+  <script>
+    // ===== NAV: mobile menu toggle =====
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // ===== NAV: blur on scroll =====
+    const siteNav = document.getElementById('siteNav');
+    function updateNav() {
+      if (window.scrollY > 50) siteNav.classList.add('site-nav--scrolled');
+      else siteNav.classList.remove('site-nav--scrolled');
+    }
+    updateNav();
+    window.addEventListener('scroll', updateNav, { passive: true });
+
+    // ===== FADE IN ON SCROLL =====
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+    // ===== CHATBOT =====
+    const chatToggleBtn = document.getElementById('chatToggleBtn');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatIconOpen = document.getElementById('chatIconOpen');
+    const chatIconClose = document.getElementById('chatIconClose');
+
+    let chatHistory = [];
+    let chatOpen = false;
+
+    function toggleChat() {
+      chatOpen = !chatOpen;
+      chatWindow.classList.toggle('hidden', !chatOpen);
+      chatIconOpen.classList.toggle('hidden', chatOpen);
+      chatIconClose.classList.toggle('hidden', !chatOpen);
+      if (chatOpen) chatInput.focus();
+    }
+
+    chatToggleBtn.addEventListener('click', toggleChat);
+    closeChatBtn.addEventListener('click', toggleChat);
+
+    function addMessage(text, role) {
+      const bubble = document.createElement('div');
+      bubble.className = role === 'user' ? 'chat-bubble chat-bubble--user' : 'chat-bubble chat-bubble--bot';
+      bubble.textContent = text;
+      chatMessages.appendChild(bubble);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addTypingIndicator() {
+      const wrapper = document.createElement('div');
+      wrapper.id = 'typingIndicator';
+      wrapper.className = 'chat-typing';
+      wrapper.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(wrapper);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const el = document.getElementById('typingIndicator');
+      if (el) el.remove();
+    }
+
+    async function sendChatMessage() {
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      chatInput.value = '';
+      chatSendBtn.disabled = true;
+      addMessage(message, 'user');
+      addTypingIndicator();
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, history: chatHistory })
+        });
+        const data = await res.json();
+        removeTypingIndicator();
+
+        const reply = data.reply || 'Sorry, something went wrong. Please try again.';
+        addMessage(reply, 'assistant');
+        chatHistory.push({ role: 'user', content: message });
+        chatHistory.push({ role: 'assistant', content: reply });
+
+        if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+      } catch {
+        removeTypingIndicator();
+        addMessage('Connection error. Please try again.', 'assistant');
+      } finally {
+        chatSendBtn.disabled = false;
+        chatInput.focus();
+      }
+    }
+
+    chatSendBtn.addEventListener('click', sendChatMessage);
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChatMessage();
+      }
+    });
+  </script>
+</body>
+</html>
