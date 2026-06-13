@@ -7,6 +7,8 @@ const twilio = require('twilio');
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
+const stripe = process.env.STRIPE_SECRET_KEY ? require('stripe')(process.env.STRIPE_SECRET_KEY) : null;
+
 const twilioClient = (
   process.env.TWILIO_ACCOUNT_SID &&
   process.env.TWILIO_AUTH_TOKEN &&
@@ -296,6 +298,54 @@ app.get('/api/leads/:id/activity', requireAdmin, (req, res) => {
   } catch (err) {
     console.error('Activity log fetch error:', err);
     res.status(500).json({ error: 'Failed to fetch activity log.' });
+  }
+});
+
+// POST /api/checkout — create Stripe Checkout Session for à la carte cart
+app.post('/api/checkout', async (req, res) => {
+  if (!stripe) {
+    return res.status(503).json({ error: 'Checkout not configured. Contact hello@ecdautomation.com to complete your order.' });
+  }
+
+  const { items } = req.body;
+  if (!Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({ error: 'No items in cart.' });
+  }
+
+  const VALID_PRICES = new Set([500, 750, 1000, 1500, 2500, 3500, 4000, 4500]);
+
+  const lineItems = [];
+  for (const item of items) {
+    const name = String(item.name || '').trim();
+    const price = parseInt(item.price, 10);
+    if (!name || isNaN(price) || price <= 0 || !VALID_PRICES.has(price)) {
+      return res.status(400).json({ error: `Invalid item: ${name || '(unnamed)'}` });
+    }
+    lineItems.push({
+      price_data: {
+        currency: 'usd',
+        product_data: { name: `ECD — ${name}` },
+        unit_amount: price * 100
+      },
+      quantity: 1
+    });
+  }
+
+  const origin = req.headers.origin || 'https://ecdautomation.com';
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: lineItems,
+      success_url: `${origin}/services?checkout=success`,
+      cancel_url: `${origin}/services`,
+      metadata: { source: 'a_la_carte' }
+    });
+    res.json({ url: session.url });
+  } catch (err) {
+    console.error('Stripe checkout error:', err);
+    res.status(500).json({ error: 'Failed to create checkout session.' });
   }
 });
 
