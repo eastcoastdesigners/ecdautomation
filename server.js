@@ -438,6 +438,20 @@ If a prospect asks about à la carte pricing, share the relevant price and ALWAY
 
 The full à la carte menu is available at /services on the website. You can direct prospects there to browse.
 
+We also handle enterprise and custom builds — projects significantly larger than our main packages:
+
+ENTERPRISE PROJECT TYPES (starting at $25,000, phased delivery available):
+- Learning Management Systems (LMS): Custom course platforms with video, student progression, certificates, community features, and optionally AI practice tools. For coaches, educators, and program creators. Investment: $25K to $85K depending on scope.
+- Multi-Tenant SaaS: Custom subscription software for founders. Multi-tenant architecture, subscription billing, role-based access. Investment: $40K to $100K.
+- Custom AI Systems: Custom AI agents, voice-to-voice practice tools, document processing, conversational interfaces — beyond off-the-shelf chatbots. Investment: $20K to $60K.
+
+If a prospect asks about projects bigger than our standard packages (LMS, course platforms, SaaS, large migrations from Kajabi/Thinkific/GoHighLevel, custom AI agents), tell them we handle that type of work and direct them to /enterprise to learn more. Recommend they book an enterprise consultation. Do NOT quote specific enterprise numbers — just confirm we handle it and say projects start at $25,000 custom-scoped. Do not send any Stripe links for enterprise work.
+
+Enterprise Care tiers (after launch):
+- Enterprise Essential: $750/month
+- Enterprise Active: $1,500/month
+- Enterprise Full: $2,500/month
+
 We also offer two rewards programs:
 - Referral reward: $500 off the client's next project for every referral who books and pays. Refer three clients = $1,500 off, or effectively a free project up to that amount.
 - Loyalty reward: Active Care Package clients get 10% off all future work — applies automatically, no forms needed.

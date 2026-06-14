@@ -209,6 +209,22 @@
     @media (max-width: 900px) { .care-grid { grid-template-columns: 1fr; gap: 28px; } }
     .care-card .pricing-price { font-size: 44px; }
 
+    /* ===== ENTERPRISE TEASER ===== */
+    .enterprise-teaser-section { padding: clamp(32px, 5vw, 48px) 0; }
+    .enterprise-card { background: var(--color-text); color: var(--color-bg); border-radius: 6px; padding: clamp(40px, 5vw, 64px); position: relative; overflow: hidden; }
+    .enterprise-label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 24px; }
+    .enterprise-headline { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 5vw, 56px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; color: var(--color-bg); font-weight: 400; }
+    .enterprise-subhead { font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.55; color: var(--color-bg); opacity: 0.85; max-width: 640px; margin: 0 0 32px; }
+    .enterprise-list { list-style: none; padding: 0; margin: 0 0 40px; max-width: 720px; }
+    .enterprise-list li { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; color: var(--color-bg); opacity: 0.9; padding-left: 24px; position: relative; margin-bottom: 12px; }
+    .enterprise-list li::before { content: "—"; position: absolute; left: 0; color: var(--color-accent); font-weight: 500; }
+    .enterprise-price-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .enterprise-price { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 3vw, 38px); line-height: 1; color: var(--color-bg); font-weight: 400; }
+    .enterprise-price-note { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-bg); opacity: 0.6; }
+    .enterprise-cta { display: inline-block; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500; color: var(--color-bg); background: var(--color-accent); padding: 14px 28px; border-radius: 4px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
+    .enterprise-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    @media (max-width: 640px) { .enterprise-card { padding: 32px 24px; } .enterprise-price-row { padding-top: 24px; } }
+
     /* ===== REWARDS ===== */
     .rewards-section { margin-top: clamp(64px, 9vw, 96px); padding-top: clamp(48px, 7vw, 72px); border-top: 1px solid var(--color-border); }
     .rewards-section .label-mono { display: block; margin-bottom: 16px; }
@@ -883,6 +899,30 @@
       <div style="text-align: center; padding: 24px 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted);">
         Secure checkout powered by Stripe · SSL encrypted · All major payment methods accepted
       </div>
+
+      <!-- Enterprise Teaser -->
+      <section class="enterprise-teaser-section fade-in" aria-labelledby="enterprise-heading">
+        <div class="enterprise-card">
+          <span class="enterprise-label">Enterprise — Custom Builds</span>
+          <h2 id="enterprise-heading" class="enterprise-headline">Need something bigger?</h2>
+          <p class="enterprise-subhead">
+            Learning platforms with video and community. Multi-tenant SaaS applications.
+            AI-powered systems and custom integrations. Migrations from Kajabi, Thinkific,
+            or GoHighLevel.
+          </p>
+          <ul class="enterprise-list">
+            <li>Learning management systems with video, community, certificates, and AI practice tools</li>
+            <li>Multi-tenant SaaS platforms with subscription tiers</li>
+            <li>Custom AI agents and automation systems</li>
+            <li>Complex migrations from existing platforms</li>
+          </ul>
+          <div class="enterprise-price-row">
+            <span class="enterprise-price">Starting at $25,000</span>
+            <span class="enterprise-price-note">Custom scoped · Phased delivery available</span>
+          </div>
+          <a href="/enterprise" class="enterprise-cta">Learn more →</a>
+        </div>
+      </section>
 
       <!-- Care Packages -->
       <div class="care-section fade-in">
