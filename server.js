@@ -72,6 +72,9 @@ db.exec(`CREATE INDEX IF NOT EXISTS idx_activity_lead ON activity_log(lead_id, t
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/services', (req, res) => res.sendFile(path.join(__dirname, 'public', 'services.html')));
+app.get('/enterprise', (req, res) => res.sendFile(path.join(__dirname, 'public', 'enterprise.html')));
+
 app.get('/api/config', (req, res) => {
   res.json({ spotCount: SPOT_COUNT });
 });
