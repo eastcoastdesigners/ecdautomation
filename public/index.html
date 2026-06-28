@@ -39,7 +39,7 @@
       {"@type":"Question","name":"What does \"you own it\" actually mean?","acceptedAnswer":{"@type":"Answer","text":"When the project is done, we hand you the complete source code, all the logins, your domain, your AI chatbot's configuration, and any API keys connected to your system. You can host it anywhere, edit it yourself, hire any other developer to update it, or move it to a different platform at any time. We can't take any of it back, even if you stopped working with us tomorrow."}},
       {"@type":"Question","name":"Do you build for any industry?","acceptedAnswer":{"@type":"Answer","text":"We work with established small business owners across most service industries — restaurants, salons, dental practices, real estate agents, contractors, professional services, retail, and others. We don't work with hobby businesses, multi-level marketing companies, adult content, gambling, cryptocurrency speculation, or anything illegal."}},
       {"@type":"Question","name":"Can you also handle our existing website?","acceptedAnswer":{"@type":"Answer","text":"Sometimes. If you have an existing site we can rebuild it on our platform. We don't take over WordPress sites or migrate from platforms like Wix or Squarespace — instead we build you a new custom site you own outright and help you transition."}},
-      {"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"Three packages: $5,000 for a custom website, $7,500 for website plus CRM, and $10,000 for the all-in-one system with AI chatbot, calendar, email and SMS automation, and payments. One-time fee. Half down, half on delivery."}},
+      {"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"Two paths. Websites: $500 for a basic site, $1,000 for website plus CRM, or $2,500 for the all-in-one automated system — one-time fees, founding client pricing for a limited time. AI Assistants: $750 setup plus $350 a month to never miss a lead, up to custom Done-For-You Ops from $3,000 setup plus $1,200 a month. CRM setup, custom AI builds, and team training are also available on request."}},
       {"@type":"Question","name":"Why is it a one-time fee and not monthly?","acceptedAnswer":{"@type":"Answer","text":"Because you own what we build. Monthly fees imply you're renting our work. We don't believe in that. You pay once, you own the system, and you only pay $5 a month for hosting after that. If you want ongoing support we offer Care Packages, but those are optional."}},
       {"@type":"Question","name":"Do you offer payment plans?","acceptedAnswer":{"@type":"Answer","text":"Yes. Standard terms are half down to start, half on delivery. If you need more flexibility, we can break it into three monthly payments. We don't offer financing through third parties."}},
       {"@type":"Question","name":"Are there hidden fees?","acceptedAnswer":{"@type":"Answer","text":"No. Your one-time fee covers everything we build. The only ongoing cost is $5 per month for hosting (paid directly to the hosting provider, not to us) and your domain registration ($10-20 per year, also paid directly). If you choose a Care Package, that's a separate monthly subscription you can cancel any time."}},
@@ -208,6 +208,43 @@
     .care-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: clamp(40px, 6vw, 56px); }
     @media (max-width: 900px) { .care-grid { grid-template-columns: 1fr; gap: 28px; } }
     .care-card .pricing-price { font-size: 44px; }
+
+    /* ===== PROMO BANNER ===== */
+    .promo-banner { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; background: var(--color-accent-soft); border: 1px solid var(--color-accent); border-radius: 6px; padding: 16px 24px; margin-bottom: clamp(32px, 5vw, 48px); }
+    .promo-banner-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); background: var(--color-bg); padding: 4px 10px; border-radius: 3px; flex-shrink: 0; }
+    .promo-banner-text { margin: 0; font-size: 15px; color: var(--color-text); line-height: 1.5; }
+
+    /* ===== NEED QUIZ ===== */
+    .quiz-block { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 6px; padding: clamp(28px, 4vw, 40px); margin-bottom: clamp(48px, 7vw, 72px); }
+    .quiz-options { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .quiz-option { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; padding: 11px 18px; border-radius: 20px; border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text); cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+    .quiz-option:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .quiz-option.active { background: var(--color-text); color: var(--color-bg); border-color: var(--color-text); }
+    .quiz-result { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--color-border); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .quiz-result-text { margin: 0; font-size: 16px; color: var(--color-text-muted); flex: 1; min-width: 240px; }
+
+    /* ===== CARD HIGHLIGHT (quiz jump target) ===== */
+    @keyframes cardHighlightPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(194,65,12,0); } 50% { box-shadow: 0 0 0 6px rgba(194,65,12,0.25); } }
+    .card-highlight { animation: cardHighlightPulse 1.2s ease-in-out 2; border-color: var(--color-accent) !important; }
+
+    /* ===== TIER SUBSECTIONS (Websites / AI Assistants) ===== */
+    .tier-subsection { margin-top: clamp(56px, 8vw, 80px); }
+    .tier-subsection .label-mono { display: block; margin-bottom: 12px; }
+    .tier-subhead { max-width: 720px; font-size: 17px; line-height: 1.55; color: var(--color-text-muted); margin: 12px 0 0 0; }
+    .best-for-tag { font-size: 13px; color: var(--color-text-muted); font-style: italic; margin: 0 0 16px 0; line-height: 1.5; }
+
+    /* ===== ALSO AVAILABLE ===== */
+    .also-available { margin-top: clamp(56px, 8vw, 80px); padding-top: clamp(40px, 6vw, 56px); border-top: 1px solid var(--color-border); }
+    .also-available-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--color-border); border-radius: 6px; overflow: hidden; margin-top: clamp(24px, 3vw, 32px); }
+    .also-item { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: clamp(24px, 3vw, 32px); border-bottom: 1px solid var(--color-border); flex-wrap: wrap; transition: box-shadow 0.3s; }
+    .also-item:last-child { border-bottom: none; }
+    .also-item-info { flex: 1; min-width: 240px; }
+    .also-item-name { font-family: 'Instrument Serif', serif; font-size: 22px; font-weight: 400; margin: 0 0 8px; }
+    .also-item-desc { font-size: 14.5px; color: var(--color-text-muted); line-height: 1.6; margin: 0; max-width: 560px; }
+    .also-item-price { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
+    .also-item-from { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text); }
+    .also-available-footnote { margin-top: 20px; font-size: 13px; color: var(--color-text-muted); }
+    @media (max-width: 640px) { .also-item-price { align-items: flex-start; width: 100%; } }
 
     /* ===== ENTERPRISE TEASER ===== */
     .enterprise-teaser-section { padding: clamp(32px, 5vw, 48px) 0; }
@@ -769,7 +806,7 @@
                 <td class="row-label">Upfront cost</td>
                 <td>$0</td>
                 <td>$30,000+</td>
-                <td class="col-ecd-cell">$5,000–$10,000</td>
+                <td class="col-ecd-cell">$500–$2,500</td>
               </tr>
               <tr>
                 <td class="row-label">Monthly cost</td>
@@ -828,15 +865,37 @@
     <div class="container">
       <span class="label-mono fade-in">07 — Investment</span>
       <h2 class="h-section w-60 fade-in" style="margin-top: 24px; margin-bottom: clamp(40px, 6vw, 64px);">
-        Three packages. One promise. <span class="italic">You own everything.</span>
+        Pick your path. <span class="italic">Pay only for what you need.</span>
       </h2>
 
+      <div class="promo-banner fade-in">
+        <span class="promo-banner-tag">Limited time</span>
+        <p class="promo-banner-text">Founding client pricing on websites — these rates won't last. Lock in now before prices go back up.</p>
+      </div>
+
+      <div class="quiz-block fade-in" id="needQuiz">
+        <span class="label-mono label-mono--accent">Not sure where to start?</span>
+        <h3 class="h-card" style="margin-top: 12px; margin-bottom: 0;">What do you need?</h3>
+        <div class="quiz-options">
+          <button type="button" class="quiz-option" data-persona="website">I need a website</button>
+          <button type="button" class="quiz-option" data-persona="missed-calls">I'm missing calls and leads</button>
+          <button type="button" class="quiz-option" data-persona="email">I'm drowning in email and scheduling</button>
+          <button type="button" class="quiz-option" data-persona="documents">I need AI to read contracts and time-sensitive documents</button>
+          <button type="button" class="quiz-option" data-persona="crm">I already have tools, just need them connected</button>
+        </div>
+        <div id="quizResult" class="quiz-result hidden">
+          <p id="quizResultText" class="quiz-result-text"></p>
+          <a id="quizResultLink" href="#" class="btn-secondary">Take me there →</a>
+        </div>
+      </div>
+
+      <span class="label-mono label-mono--accent fade-in" style="display: block; margin-bottom: 12px;">Websites — One-time. You own the code.</span>
 
       <div class="pricing-grid">
         <!-- Tier 1 -->
-        <div class="pricing-card fade-in">
+        <div class="pricing-card fade-in" id="card-website-basic">
           <h3 class="h-card pricing-name">Website Only</h3>
-          <div class="pricing-price">$5,000</div>
+          <div class="pricing-price">$500</div>
           <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
           <hr class="pricing-divider" />
           <ul class="pricing-list">
@@ -849,15 +908,17 @@
             <span class="replaces-callout-label">What this replaces</span>
             <p class="replaces-callout-text">Wix Premium (<strong>$49/mo</strong>) + a designer's hourly rate. Saves <strong>$600+/year</strong> in subscriptions plus thousands in change requests.</p>
           </div>
-          <a href="https://buy.stripe.com/3cI5kC41l0HJbEgc2UeEo00" target="_blank" rel="noopener noreferrer" class="btn-primary" data-checkout-package="Website Only" data-checkout-value="5000">Choose this package</a>
-          <p class="pricing-deposit-note">$2,500 deposit today · $2,500 due on delivery</p>
+          <p class="best-for-tag">Best for: solo owners who just need a clean, professional web presence.</p>
+          <!-- TODO: paste real Stripe payment link here (replace href="#") -->
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" data-stripe-pending="website-basic" data-checkout-package="Website Only" data-checkout-value="500">Choose this package</a>
+          <p class="pricing-deposit-note">$250 deposit today · $250 due on delivery</p>
         </div>
 
         <!-- Tier 2 — Featured -->
-        <div class="pricing-card pricing-card--featured fade-in">
+        <div class="pricing-card pricing-card--featured fade-in" id="card-website-crm">
           <span class="pricing-card-tag">Most chosen</span>
           <h3 class="h-card pricing-name">Website + CRM</h3>
-          <div class="pricing-price">$7,500</div>
+          <div class="pricing-price">$1,000</div>
           <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
           <hr class="pricing-divider" />
           <ul class="pricing-list">
@@ -870,14 +931,16 @@
             <span class="replaces-callout-label">What this replaces</span>
             <p class="replaces-callout-text">Wix (<strong>$49/mo</strong>) + GoHighLevel basic (<strong>$97/mo</strong>) + Calendly (<strong>$16/mo</strong>) = <strong>$1,944/year saved</strong>. Pays for itself, then keeps paying you back forever.</p>
           </div>
-          <a href="https://buy.stripe.com/cNi9AS8hB0HJ23GgjaeEo01" target="_blank" rel="noopener noreferrer" class="btn-primary" data-checkout-package="Website + CRM" data-checkout-value="7500">Choose this package</a>
-          <p class="pricing-deposit-note">$3,750 deposit today · $3,750 due on delivery</p>
+          <p class="best-for-tag">Best for: owners ready to track leads and jobs in one place.</p>
+          <!-- TODO: paste real Stripe payment link here (replace href="#") -->
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" data-stripe-pending="website-crm" data-checkout-package="Website + CRM" data-checkout-value="1000">Choose this package</a>
+          <p class="pricing-deposit-note">$500 deposit today · $500 due on delivery</p>
         </div>
 
         <!-- Tier 3 -->
-        <div class="pricing-card fade-in">
+        <div class="pricing-card fade-in" id="card-website-allinone">
           <h3 class="h-card pricing-name">All-in-One System</h3>
-          <div class="pricing-price">$10,000</div>
+          <div class="pricing-price">$2,500</div>
           <p class="pricing-terms">One-time. Half down. Half on delivery.</p>
           <hr class="pricing-divider" />
           <ul class="pricing-list">
@@ -889,40 +952,18 @@
           </ul>
           <div class="replaces-callout">
             <span class="replaces-callout-label">What this replaces</span>
-            <p class="replaces-callout-text">GoHighLevel Pro (<strong>$297/mo</strong>) + Calendly (<strong>$16/mo</strong>) + Mailchimp (<strong>$75/mo</strong>) + ChatGPT Team (<strong>$50/mo</strong>) = <strong>$5,256/year saved</strong>. Pays for itself in under 2 years.</p>
+            <p class="replaces-callout-text">GoHighLevel Pro (<strong>$297/mo</strong>) + Calendly (<strong>$16/mo</strong>) + Mailchimp (<strong>$75/mo</strong>) + ChatGPT Team (<strong>$50/mo</strong>) = <strong>$5,256/year saved</strong>. Pays for itself in under 6 months.</p>
           </div>
-          <a href="https://buy.stripe.com/bJe14m0P9cqr6jWgjaeEo02" target="_blank" rel="noopener noreferrer" class="btn-primary" data-checkout-package="All-in-One System" data-checkout-value="10000">Choose this package</a>
-          <p class="pricing-deposit-note">$5,000 deposit today · $5,000 due on delivery</p>
+          <p class="best-for-tag">Best for: owners who want calls, booking, and follow-up fully automated.</p>
+          <!-- TODO: paste real Stripe payment link here (replace href="#") -->
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" data-stripe-pending="website-allinone" data-checkout-package="All-in-One System" data-checkout-value="2500">Choose this package</a>
+          <p class="pricing-deposit-note">$1,250 deposit today · $1,250 due on delivery</p>
         </div>
       </div>
 
       <div style="text-align: center; padding: 24px 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted);">
         Secure checkout powered by Stripe · SSL encrypted · All major payment methods accepted
       </div>
-
-      <!-- Enterprise Teaser -->
-      <section class="enterprise-teaser-section fade-in" aria-labelledby="enterprise-heading">
-        <div class="enterprise-card">
-          <span class="enterprise-label">Enterprise — Custom Builds</span>
-          <h2 id="enterprise-heading" class="enterprise-headline">Need something bigger?</h2>
-          <p class="enterprise-subhead">
-            Learning platforms with video and community. Multi-tenant SaaS applications.
-            AI-powered systems and custom integrations. Migrations from Kajabi, Thinkific,
-            or GoHighLevel.
-          </p>
-          <ul class="enterprise-list">
-            <li>Learning management systems with video, community, certificates, and AI practice tools</li>
-            <li>Multi-tenant SaaS platforms with subscription tiers</li>
-            <li>Custom AI agents and automation systems</li>
-            <li>Complex migrations from existing platforms</li>
-          </ul>
-          <div class="enterprise-price-row">
-            <span class="enterprise-price">Starting at $25,000</span>
-            <span class="enterprise-price-note">Custom scoped · Phased delivery available</span>
-          </div>
-          <a href="/enterprise" class="enterprise-cta">Learn more →</a>
-        </div>
-      </section>
 
       <!-- Care Packages -->
       <div class="care-section fade-in">
@@ -985,6 +1026,140 @@
           </div>
         </div>
       </div>
+
+      <!-- AI Assistants -->
+      <div class="tier-subsection fade-in" id="ai-assistants">
+        <span class="label-mono label-mono--accent">AI Assistants — Setup fee + monthly</span>
+        <h3 class="h-card" style="margin-top: 12px; margin-bottom: 8px;">Never miss a lead. Never drown in admin.</h3>
+        <p class="tier-subhead">The AI works around the clock so you don't have to. Setup fee once, then a flat monthly rate.</p>
+
+        <div class="pricing-grid" style="margin-top: clamp(32px, 5vw, 48px);">
+          <!-- Starter -->
+          <div class="pricing-card fade-in" id="card-ai-starter">
+            <h3 class="h-card pricing-name">Starter</h3>
+            <p class="pricing-tagline">Never Miss a Lead</p>
+            <div class="pricing-price">$750<span class="price-suffix"> setup</span></div>
+            <p class="pricing-terms">+ $350/mo</p>
+            <hr class="pricing-divider" />
+            <ul class="pricing-list">
+              <li>AI answers calls 24/7</li>
+              <li>Instant text-back to every lead</li>
+              <li>Automated appointment booking</li>
+              <li>Every lead captured, never lost</li>
+            </ul>
+            <p class="best-for-tag">Best for: businesses that lose leads when calls go to voicemail.</p>
+            <!-- TODO: paste real Stripe payment link here (replace href="#") -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" data-stripe-pending="ai-starter">Get Started</a>
+            <p class="pricing-deposit-note">$750 setup · then $350/mo</p>
+          </div>
+
+          <!-- Pro — Featured -->
+          <div class="pricing-card pricing-card--featured fade-in" id="card-ai-pro">
+            <span class="pricing-card-tag">⭐ Most Popular</span>
+            <h3 class="h-card pricing-name">Pro</h3>
+            <p class="pricing-tagline">AI Assistant</p>
+            <div class="pricing-price">$1,500<span class="price-suffix"> setup</span></div>
+            <p class="pricing-terms">+ $650/mo</p>
+            <hr class="pricing-divider" />
+            <ul class="pricing-list">
+              <li>Everything in Starter</li>
+              <li>Smart inbox — summarize, organize, draft replies</li>
+              <li>CRM with auto follow-up</li>
+              <li>Calendar scheduling</li>
+              <li>Daily summary reports</li>
+            </ul>
+            <p class="best-for-tag">Best for: busy owners drowning in email, scheduling, and follow-up.</p>
+            <!-- TODO: paste real Stripe payment link here (replace href="#") -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" data-stripe-pending="ai-pro">Get Started</a>
+            <p class="pricing-deposit-note">$1,500 setup · then $650/mo</p>
+          </div>
+
+          <!-- Custom -->
+          <div class="pricing-card fade-in" id="card-ai-custom">
+            <h3 class="h-card pricing-name">Custom</h3>
+            <p class="pricing-tagline">Done-For-You Ops</p>
+            <div class="pricing-price">From $3,000<span class="price-suffix"> setup</span></div>
+            <p class="pricing-terms">+ from $1,200/mo</p>
+            <hr class="pricing-divider" />
+            <ul class="pricing-list">
+              <li>Everything in Pro</li>
+              <li>Email + SMS campaigns</li>
+              <li>Custom workflows</li>
+              <li>Industry-specific builds (e.g. bid triage)</li>
+            </ul>
+            <p class="best-for-tag">Best for: growing teams ready to automate outreach and operations.</p>
+            <a href="#calendar" class="btn-primary">Book a Call</a>
+            <p class="pricing-deposit-note">Custom scoped on a call</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Also Available -->
+      <div class="also-available fade-in" id="also-available">
+        <span class="label-mono label-mono--accent">Also available — Request a quote</span>
+        <h3 class="h-card" style="margin-top: 12px; margin-bottom: 0;">Need something specific?</h3>
+
+        <div class="also-available-list">
+          <div class="also-item" id="row-crm-setup">
+            <div class="also-item-info">
+              <h4 class="also-item-name">CRM Setup</h4>
+              <p class="also-item-desc">Pipelines, contact import, and basic automations set up for you. Best for: owners who already have leads, just need them organized.</p>
+            </div>
+            <div class="also-item-price">
+              <span class="also-item-from">From $500</span>
+              <a href="#calendar" class="btn-secondary">Request a quote →</a>
+            </div>
+          </div>
+
+          <div class="also-item" id="row-custom-ai-build">
+            <div class="also-item-info">
+              <h4 class="also-item-name">Custom AI Build</h4>
+              <p class="also-item-desc">A Claude or ChatGPT assistant trained on your business — your documents, your workflows. Best for: real estate agents, lawyers, and professionals who need AI to read through contracts and time-sensitive documents.</p>
+            </div>
+            <div class="also-item-price">
+              <span class="also-item-from">From $1,500</span>
+              <a href="#calendar" class="btn-secondary">Request a quote →</a>
+            </div>
+          </div>
+
+          <div class="also-item" id="row-learning-setup">
+            <div class="also-item-info">
+              <h4 class="also-item-name">Learning / Self-Reliance Setup</h4>
+              <p class="also-item-desc">We set up ChatGPT or Claude on your systems and train your team to run it without us. Best for: teams who want to be self-sufficient with AI tools.</p>
+            </div>
+            <div class="also-item-price">
+              <span class="also-item-from">Request a quote</span>
+              <a href="#calendar" class="btn-secondary">Request a quote →</a>
+            </div>
+          </div>
+        </div>
+
+        <p class="also-available-footnote">Add-ons also available: review automation, extra SMS/email campaigns, multilingual chatbot, and integrations. Ask during your call.</p>
+      </div>
+
+      <!-- Enterprise Teaser -->
+      <section class="enterprise-teaser-section fade-in" aria-labelledby="enterprise-heading">
+        <div class="enterprise-card">
+          <span class="enterprise-label">Enterprise — Custom Builds</span>
+          <h2 id="enterprise-heading" class="enterprise-headline">Need something bigger?</h2>
+          <p class="enterprise-subhead">
+            Learning platforms with video and community. Multi-tenant SaaS applications.
+            AI-powered systems and custom integrations. Migrations from Kajabi, Thinkific,
+            or GoHighLevel.
+          </p>
+          <ul class="enterprise-list">
+            <li>Learning management systems with video, community, certificates, and AI practice tools</li>
+            <li>Multi-tenant SaaS platforms with subscription tiers</li>
+            <li>Custom AI agents and automation systems</li>
+            <li>Complex migrations from existing platforms</li>
+          </ul>
+          <div class="enterprise-price-row">
+            <span class="enterprise-price">Starting at $25,000</span>
+            <span class="enterprise-price-note">Custom scoped · Phased delivery available</span>
+          </div>
+          <a href="/enterprise" class="enterprise-cta">Learn more →</a>
+        </div>
+      </section>
 
       <!-- REFERRAL + LOYALTY REWARDS -->
       <div class="rewards-section fade-in" id="rewards">
@@ -1282,7 +1457,7 @@
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer-wrap"><div class="faq-answer" id="faq-5"><div class="faq-answer-inner">
-              Three packages: $5,000 for a custom website, $7,500 for website plus CRM, and $10,000 for the all-in-one system with AI chatbot, calendar, email and SMS automation, and payments. One-time fee. Half down, half on delivery.
+              Two paths. Websites: $500 for a basic site, $1,000 for website plus CRM, or $2,500 for the all-in-one automated system — one-time fees, founding client pricing for a limited time. AI Assistants: $750 setup plus $350/month to never miss a lead, up to custom Done-For-You Ops from $3,000 setup plus $1,200/month. CRM setup, custom AI builds, and team training are also available on request.
             </div></div></div>
           </div>
 
@@ -1910,6 +2085,41 @@
           value: parseInt(btn.dataset.checkoutValue, 10),
           currency: 'USD'
         });
+      });
+    });
+
+    // ===== "WHAT DO YOU NEED?" QUIZ =====
+    const quizData = {
+      website: { targetId: 'card-website-crm', text: "Most business owners start here — a clean website with built-in lead tracking." },
+      'missed-calls': { targetId: 'card-ai-starter', text: "Never Miss a Lead is built exactly for this — instant text-back and booking, 24/7." },
+      email: { targetId: 'card-ai-pro', text: "AI Assistant (Pro) handles your inbox, calendar, and follow-up automatically." },
+      documents: { targetId: 'row-custom-ai-build', text: "A Custom AI Build trained on your documents can read and summarize contracts for you." },
+      crm: { targetId: 'row-crm-setup', text: "CRM Setup gets your existing leads organized and tracked in one place." }
+    };
+
+    document.querySelectorAll('.quiz-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const data = quizData[btn.dataset.persona];
+        if (!data) return;
+
+        const resultBlock = document.getElementById('quizResult');
+        document.getElementById('quizResultText').textContent = data.text;
+        const link = document.getElementById('quizResultLink');
+        link.href = '#' + data.targetId;
+        resultBlock.classList.remove('hidden');
+
+        link.onclick = (e) => {
+          e.preventDefault();
+          const target = document.getElementById(data.targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            target.classList.add('card-highlight');
+            setTimeout(() => target.classList.remove('card-highlight'), 2400);
+          }
+        };
       });
     });
 
