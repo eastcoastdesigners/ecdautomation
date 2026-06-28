@@ -506,6 +506,75 @@ End every conversation with: "Want to book a 30-min consultation? Here's the lin
   }
 });
 
+// POST /api/vapi/book-consultation — Vapi tool webhook, books a slot on Cal.com
+app.post('/api/vapi/book-consultation', async (req, res) => {
+  const vapiSecret = req.headers['x-vapi-secret'];
+  if (!process.env.VAPI_TOOL_SECRET || vapiSecret !== process.env.VAPI_TOOL_SECRET) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const toolCalls = req.body?.message?.toolCallList || [];
+  const results = [];
+
+  for (const call of toolCalls) {
+    if (call.name !== 'book_consultation') continue;
+
+    const { name, email, timeZone, startTime } = call.arguments || {};
+
+    if (!name || !email || !startTime) {
+      results.push({
+        toolCallId: call.id,
+        result: 'Missing required booking details (name, email, or start time). Ask the caller for the missing info and try again.'
+      });
+      continue;
+    }
+
+    try {
+      const calRes = await fetch('https://api.cal.com/v2/bookings', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.CAL_API_KEY}`,
+          'Content-Type': 'application/json',
+          'cal-api-version': '2024-08-13'
+        },
+        body: JSON.stringify({
+          eventTypeId: parseInt(process.env.CAL_EVENT_TYPE_ID, 10),
+          start: startTime,
+          attendee: {
+            name,
+            email,
+            timeZone: timeZone || 'America/New_York'
+          }
+        })
+      });
+
+      const calData = await calRes.json();
+
+      if (!calRes.ok) {
+        console.error('Cal.com booking error:', calData);
+        results.push({
+          toolCallId: call.id,
+          result: `Booking failed: ${calData.message || 'that time may not be available'}. Offer the caller a different time, or tell them you will text a booking link instead.`
+        });
+        continue;
+      }
+
+      results.push({
+        toolCallId: call.id,
+        result: `Booked successfully for ${startTime}. Confirm the date and time back to the caller.`
+      });
+    } catch (err) {
+      console.error('Vapi booking endpoint error:', err);
+      results.push({
+        toolCallId: call.id,
+        result: 'Booking system is temporarily unavailable. Tell the caller you will text them a booking link instead.'
+      });
+    }
+  }
+
+  res.json({ results });
+});
+
 app.listen(PORT, () => {
   console.log(`ECD Automation server running on port ${PORT}`);
 });
