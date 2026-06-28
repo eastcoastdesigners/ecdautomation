@@ -378,7 +378,7 @@ AI ASSISTANTS (setup fee + monthly, a recurring AI service):
 - Custom "Done-For-You Ops": from $3,000 setup + from $1,200/month — adds email/SMS campaigns, custom workflows, industry-specific builds (e.g. bid triage)
 
 Also available — request a quote, no fixed price grid, scoped on a call:
-- CRM Setup: from $500
+- CRM Setup: from $750
 - Custom AI Build (a Claude or ChatGPT trained on their specific business): from $1,500
 - Learning / Self-Reliance Setup: we set up AI tools on their systems and train their team to run it without us
 
@@ -419,7 +419,7 @@ ADD-ONS (stack onto packages):
 - Full brand identity (logo + colors + fonts + guide): $1,500
 - Custom illustrations (3 branded pieces): $750
 - AI brand photography (10 images): $1,000
-- Professional copy rewrite (full site): $1,500
+- Professional copy rewrite (full site): from $2,500 (depends on existing content — scoped on a call)
 - SEO foundation setup: $750
 - Google My Business setup + first 5 posts: $1,500
 - Migration from existing site: $1,500
@@ -427,14 +427,14 @@ ADD-ONS (stack onto packages):
 - Email marketing integration (Mailchimp / ConvertKit): $1,500
 - Advanced booking system (staff + services + payments): $2,500
 - E-commerce mini-store (up to 10 products): $4,500
-- AI chatbot ADD-ON (for Website Only or Website + CRM): $4,000
+- AI chatbot ADD-ON (for Website Only or Website + CRM): $1,000
 - Premium support (3 months priority access): $500
 - Social media setup (3 platforms + first month content): $1,500
 - Lead magnet design (PDF + landing page): $1,000
 
 STANDALONE SERVICES (for non-package buyers):
-- AI chatbot added to existing site: $4,000
-- CRM system (standalone): $4,000
+- AI chatbot added to existing site: $1,000
+- CRM system (standalone): from $750
 - Standalone landing page: $1,500
 - Custom form + email/SMS automation: $1,500
 - AI integration for existing site: $3,500
