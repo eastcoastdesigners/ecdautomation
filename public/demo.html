@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Your Free AI Demo Call — East Coast Designers</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+      color: #f1f5f9; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+    }
+    .card {
+      background: #1e293b; border: 1px solid #334155; border-radius: 20px;
+      padding: 32px 28px; width: 100%; max-width: 440px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+    .emoji { font-size: 44px; text-align: center; }
+    h1 { font-size: 26px; text-align: center; margin: 10px 0 6px; line-height: 1.25; }
+    .sub { text-align: center; color: #94a3b8; font-size: 15px; margin-bottom: 24px; line-height: 1.5; }
+    label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin: 14px 0 6px; }
+    input {
+      width: 100%; padding: 13px 14px; font-size: 16px;
+      background: #0f172a; border: 1px solid #334155; border-radius: 12px; color: #f1f5f9;
+    }
+    input:focus { outline: none; border-color: #38bdf8; }
+    button {
+      width: 100%; margin-top: 24px; padding: 15px; font-size: 17px; font-weight: 700;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9); color: #03203a;
+      border: none; border-radius: 12px; cursor: pointer;
+    }
+    button:disabled { opacity: .6; cursor: default; }
+    .note { text-align: center; font-size: 12px; color: #64748b; margin-top: 16px; line-height: 1.5; }
+    .ok { text-align: center; padding: 20px 0; }
+    .ok h2 { font-size: 24px; margin-bottom: 10px; }
+    .ok p { color: #94a3b8; line-height: 1.5; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div id="form-view">
+      <div class="emoji">📞</div>
+      <h1>Get Your Free AI Demo Call</h1>
+      <p class="sub">Fill this out and my AI assistant will call you to show you exactly what it can do for your business.</p>
+      <form id="demo-form">
+        <label for="name">Your Name *</label>
+        <input id="name" name="name" type="text" required autocomplete="name" />
+        <label for="business">Business Name *</label>
+        <input id="business" name="business" type="text" required />
+        <label for="phone">Phone Number * (this is the number we'll call)</label>
+        <input id="phone" name="phone" type="tel" required autocomplete="tel" />
+        <label for="email">Best Email *</label>
+        <input id="email" name="email" type="email" required autocomplete="email" />
+        <label for="website">Website (if you have one)</label>
+        <input id="website" name="website" type="text" placeholder="optional" />
+        <button id="submit-btn" type="submit">Call me with the demo 🚀</button>
+        <p class="note">By submitting, you're requesting a demo call from our AI assistant. Calls may be recorded for quality &amp; training.</p>
+      </form>
+    </div>
+    <div id="ok-view" class="ok hidden">
+      <div class="emoji">🎉</div>
+      <h2>You're in!</h2>
+      <p>Keep your phone handy — our AI assistant will give you a call shortly to walk you through your demo and get you booked. Talk soon!</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('demo-form');
+    const btn = document.getElementById('submit-btn');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true; btn.textContent = 'Sending…';
+      const name = document.getElementById('name').value.trim();
+      const business = document.getElementById('business').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const website = document.getElementById('website').value.trim();
+      // The /api/leads endpoint takes name, email, phone, message, source.
+      // Pack business + website + intent into the message field.
+      const message = `AI DEMO CALL REQUEST\nBusiness: ${business}\nWebsite: ${website || '(none)'}\nWants a demo call from the AI assistant.`;
+      try {
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, phone, message, source: 'ai-demo-form' })
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('form-view').classList.add('hidden');
+          document.getElementById('ok-view').classList.remove('hidden');
+        } else {
+          alert(data.error || 'Something went wrong — please try again.');
+          btn.disabled = false; btn.textContent = 'Call me with the demo 🚀';
+        }
+      } catch (err) {
+        alert('Network error — please try again.');
+        btn.disabled = false; btn.textContent = 'Call me with the demo 🚀';
+      }
+    });
+  </script>
+</body>
+</html>
